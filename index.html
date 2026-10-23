@@ -1,0 +1,1292 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e1729">
+<title>La Misión del Locker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<script>
+try{var t=localStorage.getItem("lq2-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}
+</script>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0e1729; --bg2:#14203a; --card:#192848; --card2:#22365f; --line:#2c416f;
+  --text:#eef3ff; --muted:#a9b8d9;
+  --gold:#f7c04a; --gold-ink:#2a1d00; --gold-text:#f7c04a;
+  --teal:#3ddbc6; --teal-text:#3ddbc6; --red:#ff8a98;
+  --shadow:0 10px 30px #0006; --radius:18px;
+  --head:"Fredoka",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f4f1ea; --bg2:#ece7dc; --card:#ffffff; --card2:#f4f0e7; --line:#dcd4c4;
+  --text:#1c2541; --muted:#5a6378;
+  --gold:#f2b632; --gold-ink:#2a1d00; --gold-text:#8d5b00;
+  --teal:#13a896; --teal-text:#0a7366; --red:#c62839;
+  --shadow:0 8px 24px #1c254120;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    color-scheme:light;
+    --bg:#f4f1ea; --bg2:#ece7dc; --card:#ffffff; --card2:#f4f0e7; --line:#dcd4c4;
+    --text:#1c2541; --muted:#5a6378;
+    --gold:#f2b632; --gold-ink:#2a1d00; --gold-text:#8d5b00;
+    --teal:#13a896; --teal-text:#0a7366; --red:#c62839;
+    --shadow:0 8px 24px #1c254120;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);min-height:100vh;
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+[hidden]{display:none!important}
+a{color:var(--teal-text)}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
+/* ---------- cabecera ---------- */
+header.top{position:sticky;top:0;z-index:900;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 10px;padding-top:max(10px,env(safe-area-inset-top))}
+header.top .in{max-width:720px;margin:0 auto}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand h1{font:700 1.15rem/1.2 var(--head);margin:0;letter-spacing:.01em}
+.tools{display:flex;gap:6px}
+.ib{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--text);width:38px;height:38px;border-radius:12px;font:600 1rem/1 system-ui;cursor:pointer;display:grid;place-items:center}
+.ib:hover{background:var(--card2)}
+.sub{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.85rem;margin-top:4px}
+.dots{display:flex;gap:6px;margin-top:8px}
+.dot{flex:1;height:8px;border-radius:99px;background:var(--line);transition:background .3s}
+.dot.done{background:var(--teal)} .dot.now{background:var(--gold)}
+
+.wrap{max-width:720px;margin:0 auto;padding:0 16px calc(64px + env(safe-area-inset-bottom))}
+
+/* ---------- mapa ---------- */
+.mapcard{margin:16px 0 0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card);box-shadow:var(--shadow);isolation:isolate}
+#map{height:250px;background:#dfe6ee;transition:height .25s}
+.mapcard.big #map{height:62vh}
+#map.notiles{background:repeating-linear-gradient(45deg,#e3e8ef 0 12px,#d9e0ea 12px 24px)}
+#map.svgmap{background:var(--bg2);height:auto}
+#map.svgmap svg{display:block;width:100%;height:auto}
+.maptools{display:flex;gap:6px;padding:8px;flex-wrap:wrap}
+.maptools button{appearance:none;border:1px solid var(--line);background:var(--bg2);color:var(--text);border-radius:10px;padding:6px 10px;font:600 .85rem/1.2 system-ui;cursor:pointer;min-height:36px}
+.maptools button:hover{background:var(--card2)}
+.maptools .sp{flex:1}
+.mapnote{margin:0;padding:0 12px 10px;font-size:.85rem;color:var(--muted)}
+.mapnote button{font:inherit;color:var(--teal-text);background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}
+.leaflet-container{font:inherit}
+.pin{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:700 .9rem/1 system-ui;color:#fff;background:#7d88a6;border:3px solid #fff;box-shadow:0 2px 8px #0008}
+.pin.done{background:#14a693}
+.pin.now{background:#f5a300;color:#2a1d00;animation:pulse 1.6s infinite}
+.pin.goal{background:#e2445c;font-size:1rem}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #f5a300aa}70%{box-shadow:0 0 0 14px #f5a30000}100%{box-shadow:0 0 0 0 #f5a30000}}
+.me{width:18px;height:18px;border-radius:50%;background:#2d8cff;border:3px solid #fff;box-shadow:0 0 0 6px #2d8cff40}
+
+/* ---------- tarjetas ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:16px 0;box-shadow:var(--shadow)}
+.card h2{font:700 1.5rem/1.2 var(--head);margin:2px 0 8px}
+.card h2:focus{outline:none}
+.card h3{font:600 1.05rem/1.3 var(--head);margin:22px 0 8px;color:var(--gold-text)}
+.tag{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-text)}
+.big{font-size:2.8rem;line-height:1;margin:6px 0 4px}
+p{margin:.55em 0}
+.muted{color:var(--muted)} .small{font-size:.88rem}
+.prompt{font-weight:700}
+.fact{background:var(--bg2);border-radius:14px;padding:12px 14px;margin-top:14px;font-size:.95rem}
+.fact b{color:var(--gold-text)}
+.warn{background:var(--bg2);background:color-mix(in srgb,var(--gold) 18%,var(--card));border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:14px;padding:10px 14px;margin-top:12px;font-size:.95rem}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stat3 div{background:var(--bg2);border-radius:14px;padding:10px;text-align:center}
+.stat3 b{display:block;font:700 1.3rem/1.2 var(--head);color:var(--gold-text)}
+.stat3 span{font-size:.82rem;color:var(--muted)}
+ol.steps{padding-left:1.2em;margin:.4em 0} ol.steps li{margin:.25em 0}
+
+/* ---------- botones y formularios ---------- */
+.btn{appearance:none;border:0;cursor:pointer;font:700 1rem/1.2 system-ui,sans-serif;min-height:48px;padding:12px 20px;border-radius:14px;background:var(--gold);color:var(--gold-ink);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .08s,filter .15s}
+.btn:hover{filter:brightness(1.06)} .btn:active{transform:translateY(1px)}
+.btn.alt{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.alt:hover{background:var(--card2)}
+.btn.sm{min-height:40px;padding:8px 14px;font-size:.92rem}
+.btn.wide{width:100%}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.pulse{animation:pulse 1.6s infinite}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.inrow{display:flex;gap:8px}
+.inrow input{flex:1;min-width:0}
+input[type=text],input[type=date],select,textarea{width:100%;min-height:48px;padding:10px 12px;border-radius:12px;font:inherit;background:var(--bg2);color:var(--text);border:1px solid var(--line)}
+textarea{min-height:96px;resize:vertical}
+input[type=file]{font:inherit;color:var(--muted);max-width:100%}
+input[type=file]::file-selector-button{font:600 .92rem/1.2 system-ui;color:var(--text);background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-right:10px;cursor:pointer}
+.lbl{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
+.msg{min-height:1.5em;margin-top:10px;font-weight:600}
+.msg.bad{color:var(--red)} .msg.ok{color:var(--teal-text)}
+.hint{background:var(--bg2);border-left:4px solid var(--gold);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:.95rem}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* ---------- navegación ---------- */
+.nav{display:flex;gap:14px;align-items:center;background:var(--bg2);border-radius:16px;padding:12px;margin-top:14px}
+.compass{position:relative;flex:0 0 84px;height:84px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:grid;place-items:center}
+.compass svg{width:56px;height:56px;transition:transform .35s ease-out}
+.compass .n{position:absolute;top:2px;left:50%;transform:translateX(-50%);font:700 .7rem/1 system-ui;color:var(--muted)}
+.compass.off svg{opacity:.25}
+.navd{font:700 1.6rem/1.1 var(--head);color:var(--gold-text)}
+.legs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.legs span{background:var(--bg2);border-radius:10px;padding:5px 10px;font-size:.9rem}
+.legs b{color:var(--gold-text)}
+.zone{background:var(--bg2);background:color-mix(in srgb,var(--teal) 20%,var(--card));border:1px solid var(--teal);border-radius:14px;padding:10px 14px;margin-top:12px;font-weight:700}
+
+/* ---------- pruebas ---------- */
+.cipher{font:700 1.5rem/1.5 ui-monospace,Consolas,monospace;letter-spacing:.22em;text-align:center;padding:14px;background:var(--bg2);border-radius:14px;margin:12px 0;word-break:break-word}
+.tblwrap{overflow-x:auto;margin-top:6px}
+table.caesar{border-collapse:collapse;font:700 .85rem/1 ui-monospace,Consolas,monospace}
+table.caesar td,table.caesar th{border:1px solid var(--line);padding:6px 5px;text-align:center}
+table.caesar th{font:600 .72rem/1 system-ui;color:var(--muted);padding:6px 8px;text-align:left}
+table.caesar tr:last-child td{color:var(--gold-text)}
+.pair{display:grid;grid-template-columns:1fr 1.5fr;gap:10px;align-items:center;margin:10px 0}
+.pair strong{font:600 1.15rem/1.2 var(--head)}
+.pair.wrong select{border-color:var(--red)} .pair.right select{border-color:var(--teal)}
+fieldset{border:0;margin:14px 0;padding:0}
+legend{font-weight:700;margin-bottom:6px;padding:0}
+.opt{display:flex;gap:10px;align-items:center;min-height:46px;padding:6px 12px;border:1px solid var(--line);border-radius:12px;margin:6px 0;cursor:pointer}
+.opt:hover{background:var(--card2)}
+.opt input{width:20px;height:20px;accent-color:var(--gold);flex:none}
+fieldset.wrong .opt:has(input:checked){border-color:var(--red)}
+.jugs{display:flex;gap:30px;justify-content:center;align-items:flex-end;margin:18px 0}
+.jugwrap{text-align:center}
+.jug{position:relative;width:86px;border:3px solid var(--text);border-top:0;border-radius:0 0 20px 20px;background:var(--bg2);overflow:hidden;margin:0 auto}
+.jug .water{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(#6cc4ff,#2f86e0);transition:height .45s ease}
+.jugwrap b{display:block;margin-top:6px;font-size:.95rem}
+.ctrls{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;min-height:48px}
+.chip{appearance:none;font:700 1rem/1 system-ui;cursor:pointer;color:var(--text);background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-height:44px}
+.chip.used{opacity:.3;pointer-events:none}
+.line{padding:8px;border:2px dashed var(--line);border-radius:14px}
+
+/* ---------- recompensas ---------- */
+.stars{font-size:1.7rem;letter-spacing:.12em;color:var(--gold)}
+.stars i{font-style:normal;color:var(--line)}
+.words{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.w{padding:5px 10px;border-radius:9px;font-weight:800;letter-spacing:.05em;background:var(--bg2);border:1px dashed var(--line);color:var(--muted);font-size:.92rem}
+.w.got{background:var(--gold);color:var(--gold-ink);border:1px solid var(--gold)}
+.photo{display:flex;gap:12px;align-items:center;background:var(--bg2);border-radius:14px;padding:12px;margin-top:14px}
+.photo .ph{flex:0 0 76px;height:76px;border-radius:12px;background:var(--card);display:grid;place-items:center;font-size:1.8rem;overflow:hidden}
+.photo .ph img{width:100%;height:100%;object-fit:cover}
+.photo .tx{flex:1;min-width:0}
+.album{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.album figure{margin:0;background:var(--bg2);border-radius:12px;overflow:hidden;aspect-ratio:1;display:grid;place-items:center;font-size:2rem;position:relative}
+.album img{width:100%;height:100%;object-fit:cover}
+.album figcaption{position:absolute;left:0;right:0;bottom:0;font-size:.7rem;padding:3px 6px;background:#000a;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- final ---------- */
+.lock{font-size:4rem;line-height:1;text-align:center;margin:4px 0 6px;transition:transform .4s}
+.lock.open{transform:scale(1.15) rotate(-8deg)}
+.letter{background:var(--card2);border-radius:16px;padding:16px 18px;margin-top:14px;border-left:5px solid var(--gold);font-size:1.02rem}
+.letter .sig{text-align:right;font-weight:700;margin-top:8px;color:var(--gold-text)}
+.qrbox{background:#fff;border-radius:18px;padding:16px;margin:14px auto;max-width:340px;text-align:center;box-shadow:var(--shadow)}
+.qrbox img{display:block;width:100%;height:auto;image-rendering:pixelated}
+.qrbox.empty{background:var(--bg2);color:var(--text);border:1px dashed var(--line);box-shadow:none}
+.code{font:700 1.4rem/1.2 ui-monospace,Consolas,monospace;letter-spacing:.12em;background:var(--bg2);padding:8px 12px;border-radius:10px;display:inline-block}
+details{background:var(--bg2);border-radius:14px;padding:10px 14px;margin-top:12px}
+summary{cursor:pointer;font-weight:700}
+#qrfull{position:fixed;inset:0;background:#fff;color:#111;z-index:2000;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:4vmin;text-align:center}
+#qrfull.on{display:flex}
+#qrfullbox{width:100%;display:flex;justify-content:center}
+#qrfullbox img{width:min(90vw,75vh);height:auto;image-rendering:pixelated}
+#qrfullbox svg,.qrbox.bar svg{display:block;height:auto;margin:0 auto}
+#qrfull p{margin:0;font:600 1rem/1.4 system-ui;color:#444}
+#qrfull #qrfullcode{font:700 2.2rem/1.2 ui-monospace,Consolas,monospace;letter-spacing:.3em;color:#111}
+.qrbox.bar{max-width:460px;padding:18px 12px}
+.digits{font:700 1.7rem/1.2 ui-monospace,Consolas,monospace;letter-spacing:.35em;padding-left:.35em;color:#111;margin-top:10px}
+
+/* ---------- modal, toast, pie ---------- */
+.modal{position:fixed;inset:0;background:#0009;z-index:1500;display:flex;align-items:flex-end;justify-content:center;padding:16px}
+.modal-in{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:20px;max-width:560px;width:100%;max-height:85vh;overflow:auto;padding:20px;box-shadow:var(--shadow)}
+.modal-in h2{font:700 1.3rem/1.2 var(--head);margin:0 0 8px}
+@media (min-width:600px){.modal{align-items:center}}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(30px);opacity:0;background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;z-index:2500;transition:.25s;max-width:calc(100% - 32px);text-align:center;pointer-events:none}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{margin-top:24px;text-align:center;display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
+footer button{background:none;border:0;color:var(--muted);text-decoration:underline;font:inherit;font-size:.9rem;cursor:pointer;padding:8px}
+canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:3000}
+@media (max-width:420px){.pair{grid-template-columns:1fr;gap:4px}.card{padding:18px 16px}.jugs{gap:20px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<noscript><p style="padding:16px">Este juego necesita JavaScript activado.</p></noscript>
+
+<header class="top">
+  <div class="in">
+    <div class="brand">
+      <h1>La Misión del Locker</h1>
+      <div class="tools">
+        <button class="ib" id="bHelp" type="button" aria-label="Cómo se juega" title="Ayuda">?</button>
+        <button class="ib" id="bSound" type="button" aria-label="Sonido" title="Sonido">🔊</button>
+        <button class="ib" id="bTheme" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Tema claro / oscuro">🌓</button>
+      </div>
+    </div>
+    <div class="sub"><span id="km"></span><span id="timer"></span></div>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="mapcard" id="mapcard" aria-label="Mapa de la ruta">
+    <div id="map"></div>
+    <div class="maptools">
+      <button type="button" id="mMe" title="Mostrar dónde estoy">📍 Yo</button>
+      <button type="button" id="mStop" title="Centrar en la parada actual">🎯 Parada</button>
+      <button type="button" id="mRoute" title="Ver toda la ruta">🗺️ Ruta</button>
+      <span class="sp"></span>
+      <button type="button" id="mTiles" title="Si el mapa no se ve bien, prueba otro servidor">🔁 Mapa</button>
+      <button type="button" id="mBig" aria-label="Ampliar o reducir el mapa">⤢</button>
+    </div>
+    <p class="mapnote" id="mapnote" hidden></p>
+  </section>
+  <div id="view"></div>
+  <footer>
+    <button type="button" id="fHelp">Ayuda / me he perdido</button>
+    <button type="button" id="fReset">Reiniciar la aventura</button>
+  </footer>
+</main>
+
+<div id="modal" class="modal" hidden></div>
+<div id="qrfull" role="dialog" aria-label="Código a pantalla completa"><div id="qrfullbox"></div><p id="qrfullcode"></p><p>Si el lector no lo lee, aleja o acerca un poco el móvil, o gíralo en horizontal.<br>Toca la pantalla para cerrar.</p></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<!-- Ajustes del regalo. Lo más cómodo es editarlos desde el modo creador: abre este archivo añadiendo #crear al final de la dirección. -->
+<script type="application/json" id="gift-config">{"v":2,"recipient":"","from":"","message":"","lockerCode":"","deadline":"","phrase":["ABRE","EL","REGALO","QUE","TE","ESPERA"],"qr":"","codeX":"UVNHUlde"}</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+(function(){
+"use strict";
+// Copia exacta de la página tal y como se cargó: el modo creador la usa para exportar el juego personalizado.
+const PRISTINE = "<!doctype html>\n" + document.documentElement.outerHTML;
+
+/* ================= utilidades ================= */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const escBr = s => esc(s).replace(/\n/g,"<br>");
+const readJSON = s => { try { return s ? JSON.parse(s) : null; } catch(e){ return null; } };
+const lsGet = k => { try { return localStorage.getItem(k); } catch(e){ return null; } };
+const lsSet = (k,v) => { try { localStorage.setItem(k,v); return true; } catch(e){ return false; } };
+const lsDel = k => { try { localStorage.removeItem(k); } catch(e){} };
+const K = { state:"lq2-state", cfg:"lq2-cfg", theme:"lq2-theme", sound:"lq2-sound", tiles:"lq2-tiles", qr:"lq2-qr", photo:i=>"lq2-photo-"+i };
+const DEV = location.hash === "#dev";
+const WALK = 75;          // metros por minuto a pie
+const RADIUS = 120;       // metros para considerar que has llegado
+
+function hav(a,b){
+  const R=6371000, r=Math.PI/180, dLat=(b[0]-a[0])*r, dLng=(b[1]-a[1])*r;
+  const h=Math.sin(dLat/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h));
+}
+function bearing(a,b){
+  const r=Math.PI/180, dL=(b[1]-a[1])*r;
+  const y=Math.sin(dL)*Math.cos(b[0]*r), x=Math.cos(a[0]*r)*Math.sin(b[0]*r)-Math.sin(a[0]*r)*Math.cos(b[0]*r)*Math.cos(dL);
+  return (Math.atan2(y,x)/r+360)%360;
+}
+const CARD = ["norte","noreste","este","sureste","sur","suroeste","oeste","noroeste"];
+const fmtDist = m => m>=1000 ? (m/1000).toFixed(1).replace(".",",")+" km" : Math.max(10,Math.round(m/10)*10)+" m";
+const fmtMin = m => { m=Math.max(1,Math.round(m)); return m<60 ? m+" min" : Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min"; };
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+// Amanecer y anochecer en Montpellier (ecuación del amanecer; error de unos pocos minutos).
+function sunTimes(day){
+  const r=Math.PI/180, lat=43.625, lng=3.845, J=day.getTime()/86400000+2440587.5;
+  const Js=Math.round(J-2451545+0.0008)-lng/360;
+  const M=(357.5291+0.98560028*Js)%360, C=1.9148*Math.sin(M*r)+0.02*Math.sin(2*M*r)+0.0003*Math.sin(3*M*r);
+  const lam=(M+C+180+102.9372)%360, Jt=2451545+Js+0.0053*Math.sin(M*r)-0.0069*Math.sin(2*lam*r);
+  const dec=Math.asin(Math.sin(lam*r)*Math.sin(23.4397*r));
+  const w=Math.acos((Math.sin(-0.833*r)-Math.sin(lat*r)*Math.sin(dec))/(Math.cos(lat*r)*Math.cos(dec)))/r;
+  const at=j=>new Date((j-2440587.5)*86400000);
+  return {rise:at(Jt-w/360), set:at(Jt+w/360)};
+}
+const hhmm = d => d.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
+const fmtDate = iso => { const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||""); return m ? new Date(+m[1],+m[2]-1,+m[3]).toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"}) : ""; };
+
+/* ================= ajustes del regalo ================= */
+const DEFAULTS = {v:2, recipient:"", from:"", message:"", lockerCode:"", codeX:"", deadline:"", phrase:["ABRE","EL","REGALO","QUE","TE","ESPERA"], qr:""};
+const embeddedCfg = readJSON($("#gift-config").textContent) || {};
+let CFG;
+function loadCfg(){
+  CFG = Object.assign({}, DEFAULTS, embeddedCfg, readJSON(lsGet(K.cfg)) || {});
+  if(!Array.isArray(CFG.phrase) || CFG.phrase.length!==6 || CFG.phrase.some(w=>!String(w).trim())) CFG.phrase = DEFAULTS.phrase.slice();
+  CFG.phrase = CFG.phrase.map(w=>String(w).trim().toUpperCase());
+}
+loadCfg();
+const phraseText = () => { const s=CFG.phrase.join(" ").toLowerCase(); return s.charAt(0).toUpperCase()+s.slice(1); };
+
+// El QR y el código de recogida se guardan ofuscados con la frase secreta: no se ven a simple vista en el código de la página.
+const qrKey = phrase => norm(phrase.join("")) || "locker";
+function xorStr(s,key){ const out=new Array(s.length); for(let i=0;i<s.length;i++) out[i]=String.fromCharCode(s.charCodeAt(i)^key.charCodeAt(i%key.length)); return out.join(""); }
+const obfuscate = (text, phrase) => btoa(xorStr(text, qrKey(phrase)));
+const unveil = b64 => { try { return xorStr(atob(b64), qrKey(CFG.phrase)); } catch(e){ return ""; } };
+function revealQr(){
+  const d = CFG.qr ? unveil(CFG.qr) : "";
+  return /^data:image\//.test(d) ? d : null;
+}
+function revealCode(){
+  const c = CFG.codeX ? unveil(CFG.codeX) : "";
+  return /^[\x20-\x7e]{1,40}$/.test(c) ? c : (CFG.lockerCode || "");
+}
+
+/* ================= código de barras Code 128 ================= */
+// 106 patrones de 11 módulos (valores 0-105; 1 = barra, 0 = espacio) y el patrón de parada.
+const C128 = "11011001100110011011001100110011010010011000100100011001000100110010011001000100110001001000110010011001001000110010001001100010010010110011100100110111001001100111010111001100100111011001001110011011001110010110010111001100100111011011100100110011101001110110111011101001100111001011001110010011011101100100111001101001110011001011011011000110110001101100011011010100011000100010110001000100011010110001000100011010001000110001011010001000110001010001100010001010110111000101100011101000110111010111011000101110001101000111011011101110110110100011101100010111011011101000110111000101101110111011101011000111010001101110001011011101101000111011000101110001101011101111010110010000101111000101010100110000101000011001001011000010010000110100001011001000010011010110010000101100001001001101000010011000010100001101001000011001011000010010110010100001111011101011000010100100011110101010011110010010111100100100111101011110010010011110100100111100101111010010011110010100111100100101101101111011011110110111101101101010111100010100011110100010111101011110100010111100010111101010001111010001010111011110101111011101110101111011110101110110100001001101001000011010011100";
+const C128_STOP = "1100011101011";
+function code128Bits(text){
+  let codes;
+  if(/^\d+$/.test(text) && text.length%2===0){        // juego C: dos dígitos por símbolo
+    codes=[105]; for(let i=0;i<text.length;i+=2) codes.push(+text.slice(i,i+2));
+  } else {                                              // juego B: ASCII imprimible
+    codes=[104];
+    for(const ch of text){ const c=ch.charCodeAt(0); if(c<32 || c>127) return null; codes.push(c-32); }
+  }
+  let sum=codes[0]; for(let i=1;i<codes.length;i++) sum+=codes[i]*i;
+  codes.push(sum%103);
+  return codes.map(k=>C128.slice(k*11,k*11+11)).join("")+C128_STOP;
+}
+function barcodeSvg(text){
+  const bits=code128Bits(text); if(!bits) return "";
+  const q=10, h=34, W=bits.length+2*q;                   // 10 módulos de margen blanco a cada lado
+  let rects="";
+  for(let i=0;i<bits.length;){
+    if(bits[i]==="1"){ let j=i; while(bits[j]==="1") j++; rects+=`<rect x="${i+q}" width="${j-i}" height="${h}"/>`; i=j; } else i++;
+  }
+  return `<svg data-modules="${W}" viewBox="0 0 ${W} ${h}" shape-rendering="crispEdges" role="img" aria-label="Código de barras ${esc(text)}"><rect width="${W}" height="${h}" fill="#fff"/><g fill="#000">${rects}</g></svg>`;
+}
+// Cada módulo ocupa un número entero de píxeles: las barras salen nítidas y el lector las mide bien.
+function fitBarcodes(root, maxW){
+  $$("svg[data-modules]",root).forEach(svg=>{
+    const box=svg.parentElement, cs=getComputedStyle(box), m=+svg.dataset.modules;
+    const avail=Math.min(maxW||Infinity, box.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight));
+    svg.style.width=(m*Math.max(1,Math.floor(avail/m)))+"px";
+  });
+}
+
+/* ================= ruta y paradas ================= */
+// Ruta a pie calculada sobre OpenStreetMap (enrutador peatonal): 4,7 km.
+const ROUTE = [[43.63179,3.85862],[43.63183,3.85785],[43.63211,3.85663],[43.63222,3.85457],[43.63208,3.85394],[43.6318,3.85371],[43.63181,3.85359],[43.63229,3.85285],[43.63298,3.85149],[43.63341,3.8508],[43.63436,3.84979],[43.63398,3.8488],[43.63576,3.84731],[43.63575,3.84689],[43.63489,3.84413],[43.63468,3.84389],[43.63387,3.84355],[43.63391,3.84313],[43.63463,3.84213],[43.63486,3.84143],[43.63344,3.8396],[43.63378,3.83909],[43.63344,3.8396],[43.6332,3.83931],[43.63279,3.83992],[43.63265,3.83996],[43.63164,3.84152],[43.63143,3.8415],[43.63128,3.84134],[43.63111,3.84139],[43.63076,3.84108],[43.63043,3.84167],[43.62965,3.84152],[43.62896,3.84116],[43.6283,3.84057],[43.62768,3.83988],[43.62708,3.83898],[43.62666,3.83794],[43.62581,3.83682],[43.62577,3.83611],[43.62545,3.83619],[43.62526,3.83604],[43.62512,3.83603],[43.62499,3.83613],[43.62484,3.83645],[43.62422,3.83669],[43.62412,3.83656],[43.62374,3.83671],[43.62376,3.83682],[43.62352,3.83699],[43.62344,3.83719],[43.62347,3.83736],[43.62324,3.83744],[43.62302,3.83798],[43.62308,3.83802],[43.6232,3.83867],[43.6237,3.8385],[43.6232,3.83867],[43.62322,3.83875],[43.62283,3.83974],[43.6227,3.83979],[43.6228,3.84027],[43.6219,3.84063],[43.62112,3.8408],[43.6194,3.84283],[43.61937,3.8428],[43.619,3.84349],[43.61828,3.84406],[43.61823,3.84383]];
+
+function caesarTable(shift){
+  const A="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; let top="", bot="";
+  for(let i=0;i<26;i++){ top+=`<td>${A[(i+shift)%26]}</td>`; bot+=`<td>${A[i]}</td>`; }
+  return `<div class="tblwrap"><table class="caesar"><tr><th>Cifrada</th>${top}</tr><tr><th>Real</th>${bot}</tr></table></div>`;
+}
+
+const STOPS = [
+  {
+    icon:"🏥", name:"Punto de partida", sub:"Hôpitaux-Facultés · Rue du Professeur Joseph Anglada",
+    lat:43.63179, lng:3.85862, leg:0,
+    title:"La primera pista está en la pared",
+    story:"Estás en Hôpitaux-Facultés, el barrio de los hospitales y las universidades de Montpellier. Toda expedición empieza sabiendo dónde pisa, así que busca la placa con el nombre de esta calle.",
+    challenge:{ type:"text", prompt:"¿Qué apellido lleva el profesor que da nombre a la calle?", placeholder:"Apellido…", contains:true, answers:["anglada"],
+      hints:["Las placas suelen estar en las esquinas, a la altura del primer piso.","Rue du Professeur Joseph A _ _ _ _ _ A (7 letras)."] },
+    fact:"La Facultad de Medicina de Montpellier recibió sus primeros estatutos en 1220: es la escuela de medicina más antigua del mundo occidental que sigue en activo.",
+    photo:"Un selfie de salida con tu mejor cara de aventura."
+  },
+  {
+    icon:"🗣️", name:"Avenue d'Occitanie", sub:"Junto a la estación de tranvía Occitanie",
+    lat:43.63449, lng:3.84839, leg:1014,
+    arrive:"Sigue la Rue du Professeur Joseph Anglada hacia el oeste hasta la Avenue d'Occitanie, junto a la estación de tranvía Occitanie.",
+    caution:"Cruza la Route de Ganges y la Avenue du Doyen Gaston Giraud solo por los pasos con semáforo que hay junto a la estación de tranvía.",
+    title:"Hablemos occitano",
+    story:"Languedoc significa «lengua del òc»: en el Sur se decía «òc» para decir «sí», mientras que en el Norte se decía «oïl», de donde viene el «oui» francés. Esa lengua del Sur es el occitano, y la avenida en la que estás lleva su nombre.",
+    challenge:{ type:"match", prompt:"Empareja cada palabra occitana con su significado:",
+      pairs:[["Òc","Sí"],["Bonjorn","Buenos días"],["Mercés","Gracias"],["Aiga","Agua"],["Carrièra","Calle"]],
+      hints:["La clave de «Òc» está en el texto de arriba. «Bonjorn» y «Mercés» se parecen mucho a sus primos franceses.","«Aiga» suena a «agua» en catalán (aigua). Lo que queda, «Carrièra», es lo que pisas ahora mismo."] },
+    fact:"Montpellier se dice «Montpelhièr» en occitano, y en el centro histórico muchas placas de calle son bilingües. Si pasa un tranvía azul de la línea 1, fíjate bien: va decorado con golondrinas blancas.",
+    photo:"Algo escrito en occitano… o un tranvía con golondrinas."
+  },
+  {
+    icon:"🏰", name:"Domaine d'Ô", sub:"Château, parque de 23 hectáreas y festivales",
+    lat:43.6339, lng:3.8390, leg:1057,
+    arrive:"Sigue por la Avenue d'Occitanie y después por la Rue Saint-Priest hasta el Domaine d'Ô. Si el parque estuviera cerrado, haz la prueba en la entrada.",
+    caution:"La Avenue des Moulins tiene hasta 3 carriles a 50 km/h: crúzala por el paso con semáforo del cruce con la Rue Saint-Priest. Después, en la Rue Saint-Priest la acera solo va por un lado.",
+    title:"El mensaje cifrado del jardinero",
+    story:"Este parque de 23 hectáreas guarda una «folie» de mediados del siglo XVIII: el Château d'Ô, con estanques, fuentes, un pinar centenario y un olivar. La calle por la que has llegado, Rue Saint-Priest, lleva el mismo nombre que quien encargó el château: Monsieur de Saint-Priest, que llegaría a ser intendente del Languedoc.",
+    challenge:{ type:"text", cipher:"OD SDODEUD HV: MDUGLQ",
+      prompt:"El jardinero dejó este mensaje con el cifrado de César: cada letra se desplazó 3 posiciones hacia delante (A→D, B→E, C→F…). Descífralo y escribe la última palabra.",
+      placeholder:"Última palabra…", contains:true, answers:["jardin"],
+      hints:["Retrocede 3 letras en el alfabeto: O→L y D→A, así que la primera palabra es «LA».",{html:"Esta tabla te dice qué letra real hay debajo de cada letra cifrada:"+caesarTable(3)}] },
+    fact:"El jardín lo diseñó Jean-Antoine Giral, el mismo arquitecto del château d'eau de la Promenade du Peyrou, donde termina el acueducto que conocerás dentro de dos paradas. Hoy el Domaine d'Ô acoge festivales de teatro, circo, música y cine.",
+    photo:"El château, sus fuentes o el pinar."
+  },
+  {
+    icon:"🐚", name:"Parc d'Alco", sub:"Barrio de Alco · calles con nombre de peregrinos",
+    lat:43.62369, lng:3.83881, leg:1780,
+    arrive:"Ve hacia el sur por la Rue Henri Lagatu y sigue los caminos peatonales hasta la Via Tolosana y el Parc d'Alco. Fíjate en los nombres de las calles: no son casualidad.",
+    caution:"La Avenue Ernest Hemingway se cruza por un paso de cebra sin semáforo: mira a ambos lados. La gran rotonda (Rond-Point de la Citoyenneté) no se cruza a pie: la ruta la pasa por pasarelas peatonales, con escaleras.",
+    title:"Los peregrinos de Santiago",
+    story:"Montpellier es ciudad-etapa de la Via Tolosana, el Camino de Arlés, que cruza el Languedoc rumbo a Santiago de Compostela. Por eso en este barrio hay calles con nombres de caminos jacobeos. ¿Cuánto sabes de ellos?",
+    challenge:{ type:"quiz", questions:[
+        {q:"¿Qué símbolo llevan los peregrinos del Camino de Santiago?", opts:["Una llave dorada","Una concha de vieira","Una campana de bronce"], a:1},
+        {q:"¿En qué ciudad termina el Camino de Santiago?", opts:["Santiago de Compostela","Roncesvalles","Burgos"], a:0},
+        {q:"La Via Tolosana, que pasa por Montpellier, es el Camino que sale de…", opts:["Lyon","Burdeos","Arlés"], a:2}
+      ],
+      hints:["El símbolo del Camino también es un marisco que se come en Galicia.","La Via Tolosana también se llama «Camino de Arlés»."] },
+    fact:"Los grandes caminos franceses salen de Tours, Vézelay, Le Puy y Arlés. Tres se unen antes de cruzar los Pirineos por Roncesvalles; la Via Tolosana los cruza por el Somport y se junta con los demás en Puente la Reina, en Navarra.",
+    photo:"Una placa de calle con nombre de camino de peregrinos."
+  },
+  {
+    icon:"💧", name:"Allée de l'Aqueduc", sub:"La ruta del agua",
+    lat:43.62229, lng:3.84047, leg:269,
+    arrive:"Desde el parque, sigue el Chemin de la Via Podensis hasta la Allée de l'Aqueduc. Son solo 270 m.",
+    caution:"En este tramo del parque hay varias escaleras.",
+    title:"El reto del agua",
+    story:"El nombre de esta alameda recuerda al acueducto de Saint-Clément, que recorre unos 14 km para llevar el agua desde la fuente del Boulidou, en Saint-Clément-de-Rivière, hasta el centro de Montpellier. Para abrir la compuerta tienes que medir una cantidad exacta con dos cubos sin marcas.",
+    challenge:{ type:"jugs", a:5, b:3, goal:4,
+      prompt:"Consigue exactamente 4 litros en el cubo grande (el de 5 L).",
+      hints:["Llena el de 5 L y vierte en el de 3 L. ¿Cuánto queda en el grande?","Vacía el de 3 L, pasa a él los 2 L del grande, vuelve a llenar el de 5 L y termina de llenar el pequeño con él."] },
+    fact:"Dirigió la obra Henri Pitot, el inventor del tubo de Pitot con el que los aviones miden su velocidad, y el agua llegó a la ciudad en 1765. El tramo más famoso, los Arceaux, son unos 880 m de arcos en dos pisos.",
+    photo:"Algo que tenga que ver con el agua."
+  },
+  {
+    icon:"📦", name:"Amazon Locker", sub:"Gasolinera Eni · 544 Rue Paul Rimbaud",
+    lat:43.61822, lng:3.84376, leg:580,
+    arrive:"Baja por la Allée de l'Aqueduc hasta el final. El Amazon Locker «Curium ENI Montpellier Rimbaud» está en la gasolinera Eni del nº 544 (abierta 24 h), a tu derecha.",
+    caution:"No cruces la Rue Paul Rimbaud (hasta 4 carriles): la gasolinera está en tu misma acera. Atención a los coches que entran y salen de ella.",
+    title:"La frase secreta",
+    story:"¡Has llegado al final de la ruta! Última prueba: ordena las seis palabras que has reunido para formar la frase secreta. Al hacerlo, el QR se desbloqueará.",
+    challenge:{ type:"order", hints:["Es una frase dirigida a ti y empieza por un verbo.","Las palabras van en el mismo orden en que las ganaste."] },
+    fact:"",
+    photo:"Tú con tu regalo recién salido del locker."
+  }
+];
+const LAST = STOPS.length-1;
+const TOTAL = STOPS.reduce((s,x)=>s+x.leg,0);
+// índice de cada parada dentro de la polilínea, de forma ordenada
+(function(){
+  let from=0;
+  STOPS.forEach((s,i)=>{
+    let best=from, bd=Infinity;
+    for(let k=from;k<ROUTE.length;k++){ const d=hav(ROUTE[k],[s.lat,s.lng]); if(d<bd){ bd=d; best=k; } }
+    s.vi = i===LAST ? ROUTE.length-1 : best; from=s.vi;
+  });
+})();
+
+/* ================= estado ================= */
+const NEW_STATE = () => ({screen:"intro", i:0, hints:{}, fails:{}, stars:{}, arrived:{}, order:null, t0:null, t1:null, gps:false});
+let S = Object.assign(NEW_STATE(), readJSON(lsGet(K.state)) || {});
+if(!["intro","travel","challenge","reward","final"].includes(S.screen) || !(S.i>=0 && S.i<=LAST)) S = NEW_STATE();
+const save = () => lsSet(K.state, JSON.stringify(S));
+const solvedUpTo = () => S.screen==="intro" ? -1 : (S.screen==="reward"||S.screen==="final") ? S.i : S.i-1;
+const starsTotal = () => Object.values(S.stars).reduce((a,b)=>a+b,0);
+const elapsedMin = () => S.t0 ? ((S.t1||Date.now())-S.t0)/60000 : 0;
+
+/* ================= sonido, vibración, avisos ================= */
+let actx=null, soundOn = lsGet(K.sound)!=="0";
+const SND = { win:[[523,.12],[659,.12],[784,.24]], fail:[[196,.16,"square"],[165,.2,"square"]], arrive:[[880,.1],[1047,.1],[1319,.22]], final:[[523,.12],[659,.12],[784,.12],[1047,.5]] };
+function play(name){
+  if(!soundOn) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    if(actx.state==="suspended") actx.resume();
+    let t=actx.currentTime+.02;
+    SND[name].forEach(([f,d,type])=>{
+      const o=actx.createOscillator(), g=actx.createGain();
+      o.type=type||"sine"; o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(type?.06:.2,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+d+.05); t+=d*.9;
+    });
+  }catch(e){}
+}
+const buzz = p => { try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} };
+let toastT=null;
+function toast(text){ const t=$("#toast"); t.textContent=text; t.classList.add("on"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("on"),3200); }
+
+function modal(title, bodyHtml, actions){
+  return new Promise(res=>{
+    const m=$("#modal"), prev=document.activeElement;
+    m.innerHTML=`<div class="modal-in" role="dialog" aria-modal="true" aria-labelledby="mT"><h2 id="mT">${esc(title)}</h2><div>${bodyHtml}</div>
+      <div class="row">${actions.map(a=>`<button type="button" class="btn ${a.cls||""}" data-act="${a.id}">${esc(a.label)}</button>`).join("")}</div></div>`;
+    m.hidden=false;
+    const close=v=>{ m.hidden=true; m.innerHTML=""; document.removeEventListener("keydown",onKey); if(prev && prev.focus) prev.focus({preventScroll:true}); res(v); };
+    const onKey=e=>{ if(e.key==="Escape") close(null); };
+    document.addEventListener("keydown",onKey);
+    m.onclick=e=>{ if(e.target===m) return close(null); const b=e.target.closest("[data-act]"); if(b) close(b.dataset.act); };
+    const f=$("[data-act]",m); if(f) f.focus();
+  });
+}
+
+/* ================= GPS y brújula ================= */
+let gps=null, acc=null, watchId=null, gpsErr="", heading=null, compassOn=false;
+function startGps(manual){
+  if(!("geolocation" in navigator)){ gpsErr="Este navegador no permite usar la ubicación"; updateNav(); if(manual) toast(gpsErr); return; }
+  if(watchId!==null){ if(manual) focusMe(); return; }
+  S.gps=true; save();
+  watchId = navigator.geolocation.watchPosition(p=>{
+    const first=!gps;
+    gps=[p.coords.latitude,p.coords.longitude]; acc=p.coords.accuracy; gpsErr="";
+    onGps(); if(first && manual) focusMe();
+  }, e=>{
+    if(e.code===1){ gpsErr="Has denegado el permiso de ubicación. Puedes activarlo en los ajustes del navegador."; navigator.geolocation.clearWatch(watchId); watchId=null; S.gps=false; save(); }
+    else if(!gps) gpsErr="Buscando señal GPS…";
+    updateNav(); if(manual && e.code===1) toast("Permiso de ubicación denegado");
+  }, {enableHighAccuracy:true, maximumAge:5000, timeout:30000});
+  updateNav();
+}
+const distTo = i => gps ? hav(gps,[STOPS[i].lat,STOPS[i].lng]) : null;
+function onGps(){
+  drawMe(); updateNav();
+  if(S.screen==="travel"){
+    const d=distTo(S.i);
+    if(d!==null && d<=RADIUS && !S.arrived[S.i]){
+      S.arrived[S.i]=true; save(); play("arrive"); buzz([120,60,120]); toast("¡Estás en la zona de la parada!");
+      const h=$("#here"); if(h) h.classList.add("pulse");
+      const z=$("#zone"); if(z) z.hidden=false;
+    }
+  }
+}
+function onOrient(e){
+  let h=null;
+  if(typeof e.webkitCompassHeading==="number") h=e.webkitCompassHeading;
+  else if(e.absolute && typeof e.alpha==="number") h=360-e.alpha;
+  if(h===null) return;
+  const so=(screen.orientation && typeof screen.orientation.angle==="number") ? screen.orientation.angle : (window.orientation||0);
+  heading=(h+so+360)%360; updateNav();
+}
+function startCompass(){
+  const add=()=>{ compassOn=true; window.addEventListener("deviceorientationabsolute",onOrient,true); window.addEventListener("deviceorientation",onOrient,true); toast("Brújula activada: sujeta el móvil en horizontal"); updateNav(); };
+  if(typeof DeviceOrientationEvent!=="undefined" && typeof DeviceOrientationEvent.requestPermission==="function"){
+    DeviceOrientationEvent.requestPermission().then(r=> r==="granted" ? add() : toast("Brújula no permitida")).catch(()=>toast("No se pudo activar la brújula"));
+  } else if("ondeviceorientationabsolute" in window || "ondeviceorientation" in window) add();
+  else toast("Este dispositivo no tiene brújula");
+}
+function updateNav(){
+  const box=$("#nav"); if(!box) return;
+  const d=distTo(S.i), comp=$(".compass",box), arrow=$("#arrow"), dist=$("#navDist"), dir=$("#navDir");
+  if(d===null){
+    comp.classList.add("off"); dist.textContent="—";
+    dir.textContent = gpsErr || (watchId!==null ? "Buscando señal GPS…" : "Activa el GPS para ver la distancia y la dirección.");
+    return;
+  }
+  const b=bearing(gps,[STOPS[S.i].lat,STOPS[S.i].lng]), live=compassOn && heading!==null;
+  comp.classList.remove("off");
+  $(".n",box).style.visibility = live ? "hidden" : "visible";
+  const rot = live ? b-heading : b;
+  arrow.style.transform=`rotate(${rot}deg)`;
+  dist.textContent = d<=RADIUS ? "¡Has llegado!" : fmtDist(d);
+  let txt = d<=RADIUS ? "Estás en la zona de la parada." : `En línea recta, hacia el ${CARD[Math.round(b/45)%8]}.`;
+  txt += live ? " La flecha apunta a la parada." : " La flecha va respecto al norte (arriba).";
+  if(acc>60) txt+=` Precisión baja (±${Math.round(acc)} m).`;
+  dir.textContent=txt;
+}
+
+/* ================= mapa ================= */
+// Servidores que funcionan sin clave y sin cabecera Referer (es decir, también abriendo el archivo en local).
+// tile.openstreetmap.org bloquea esas peticiones y CARTO exige clave, por eso no están.
+const OSM_ATTR = '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+const TILES = [
+  {name:"Esri", url:"https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", opt:{maxZoom:19, attribution:"Tiles © Esri"}},
+  {name:"OpenStreetMap France", url:"https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", opt:{subdomains:"abc", maxZoom:19, attribution:OSM_ATTR+" · OSM France"}},
+  {name:"OpenStreetMap Deutschland", url:"https://tile.openstreetmap.de/{z}/{x}/{y}.png", opt:{maxZoom:18, attribution:OSM_ATTR+" · OSM DE"}},
+  {name:"CyclOSM", url:"https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", opt:{subdomains:"abc", maxZoom:19, attribution:OSM_ATTR+" · CyclOSM"}},
+  {name:"OpenTopoMap", url:"https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", opt:{subdomains:"abc", maxZoom:17, attribution:OSM_ATTR+" · OpenTopoMap"}}
+];
+let map=null, tiles=null, tileIdx=0, routeLyr=null, pinLyr=null, meDot=null, meRing=null, svgMode=false;
+function mapNote(html){ const n=$("#mapnote"); n.innerHTML=html||""; n.hidden=!html; }
+function initMap(){
+  const el=$("#map");
+  if(typeof L==="undefined"){
+    svgMode=true; el.classList.add("svgmap");
+    ["mStop","mRoute","mBig","mTiles"].forEach(id=>$("#"+id).hidden=true);
+    mapNote("No se pudo cargar el mapa interactivo (¿sin conexión?). Se muestra un esquema de la ruta.");
+    return;
+  }
+  map=L.map(el,{scrollWheelZoom:false, zoomSnap:.5});
+  map.attributionControl.setPrefix(false);
+  map.fitBounds(L.latLngBounds(ROUTE),{padding:[20,20]});
+  routeLyr=L.layerGroup().addTo(map); pinLyr=L.layerGroup().addTo(map);
+  const saved=parseInt(lsGet(K.tiles),10);
+  useTiles(saved>=0 && saved<TILES.length ? saved : 0, 0);
+}
+// Prueba un servidor de mapas; si sus teselas fallan (403/503…) o no responde, pasa al siguiente.
+function useTiles(idx, tried){
+  if(tiles){ map.removeLayer(tiles); tiles=null; }
+  if(tried>=TILES.length){
+    $("#map").classList.add("notiles");
+    mapNote('No responde ningún servidor de mapas; la ruta y las paradas siguen visibles. <button type="button" id="retryTiles">Reintentar</button>');
+    $("#retryTiles").onclick=()=>{ mapNote(""); useTiles(0,0); };
+    return;
+  }
+  idx%=TILES.length; tileIdx=idx;
+  let ok=0, bad=0, done=false;
+  const layer=L.tileLayer(TILES[idx].url, TILES[idx].opt);
+  const next=()=>{ if(done || tiles!==layer) return; done=true; useTiles(idx+1, tried+1); };
+  layer.on("tileload",()=>{ ok++; if(ok===1){ lsSet(K.tiles,String(idx)); $("#map").classList.remove("notiles"); mapNote(""); } });
+  layer.on("tileerror",()=>{ bad++; if((ok===0 && bad>=3) || (bad>=8 && bad>ok)) next(); });
+  tiles=layer.addTo(map);
+  setTimeout(()=>{ if(ok===0) next(); }, 12000);
+}
+function pinState(i){
+  const solved=solvedUpTo();
+  if(i<=solved) return "done";
+  if(i===S.i && (S.screen==="travel"||S.screen==="challenge")) return "now";
+  return i===LAST ? "goal" : "future";
+}
+function drawMap(focus){
+  if(svgMode){ drawSvg(); return; }
+  if(!map) return;
+  routeLyr.clearLayers(); pinLyr.clearLayers();
+  const solved=solvedUpTo();
+  const active = S.screen==="travel" ? S.i : (S.screen==="reward" ? S.i+1 : -1);
+  L.polyline(ROUTE,{color:"#5f6b8a",weight:4,opacity:.7,dashArray:"2 8",lineCap:"round"}).addTo(routeLyr);
+  if(solved>0) L.polyline(ROUTE.slice(0,STOPS[solved].vi+1),{color:"#14a693",weight:5,opacity:.95}).addTo(routeLyr);
+  if(active>0) L.polyline(ROUTE.slice(STOPS[active-1].vi,STOPS[active].vi+1),{color:"#f5a300",weight:6,opacity:.95}).addTo(routeLyr);
+  STOPS.forEach((s,i)=>{
+    const st=pinState(i), label = st==="done" ? "✓" : st==="goal" ? "🎁" : st==="now" ? i+1 : "?";
+    const icon=L.divIcon({className:"",iconSize:[32,32],iconAnchor:[16,16],html:`<div class="pin ${st}">${label}</div>`});
+    const m=L.marker([s.lat,s.lng],{icon,keyboard:false}).addTo(pinLyr);
+    if(st!=="future") m.bindPopup(`<b>${i+1}. ${esc(s.name)}</b><br>${esc(s.sub)}`);
+  });
+  drawMe();
+  if(focus) focusMap();
+}
+function focusMap(){
+  if(svgMode || !map) return;
+  map.invalidateSize();
+  const a=STOPS[S.i];
+  if(S.screen==="intro") map.fitBounds(L.latLngBounds(ROUTE),{padding:[20,20]});
+  else if(S.screen==="travel" && S.i>0){
+    const pts=ROUTE.slice(STOPS[S.i-1].vi,a.vi+1);
+    if(gps && hav(gps,[a.lat,a.lng])<4000) pts.push(gps);
+    map.fitBounds(L.latLngBounds(pts),{padding:[30,30],maxZoom:17});
+  } else if(S.screen==="reward" && S.i<LAST){
+    map.fitBounds(L.latLngBounds(ROUTE.slice(a.vi,STOPS[S.i+1].vi+1)),{padding:[30,30],maxZoom:17});
+  } else map.setView([a.lat,a.lng],16);
+}
+function drawMe(){
+  if(!gps) return;
+  if(svgMode){ drawSvg(); return; }
+  if(!map) return;
+  if(!meDot){
+    meRing=L.circle(gps,{radius:acc||30,color:"#2d8cff",weight:1,fillOpacity:.12,interactive:false}).addTo(map);
+    meDot=L.marker(gps,{icon:L.divIcon({className:"",iconSize:[18,18],iconAnchor:[9,9],html:'<div class="me"></div>'}),interactive:false,keyboard:false,zIndexOffset:1000}).addTo(map);
+  } else { meDot.setLatLng(gps); meRing.setLatLng(gps).setRadius(acc||30); }
+}
+function focusMe(){
+  if(!gps){ toast("Esperando señal GPS…"); return; }
+  if(map) map.setView(gps,17);
+}
+// Esquema de la ruta para cuando no carga la librería del mapa.
+function drawSvg(){
+  const W=600, H=330, pad=26, lat0=43.625*Math.PI/180;
+  const lats=ROUTE.map(p=>p[0]), lngs=ROUTE.map(p=>p[1]);
+  const minLa=Math.min(...lats), maxLa=Math.max(...lats), minLo=Math.min(...lngs), maxLo=Math.max(...lngs);
+  const sx=(W-2*pad)/((maxLo-minLo)*Math.cos(lat0)), sy=(H-2*pad)/(maxLa-minLa), s=Math.min(sx,sy);
+  const ox=(W-(maxLo-minLo)*Math.cos(lat0)*s)/2, oy=(H-(maxLa-minLa)*s)/2;
+  const P=p=>[ox+(p[1]-minLo)*Math.cos(lat0)*s, H-oy-(p[0]-minLa)*s];
+  const path=pts=>pts.map((p,k)=>(k?"L":"M")+P(p).map(v=>v.toFixed(1)).join(" ")).join("");
+  const solved=solvedUpTo();
+  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Esquema de la ruta"><path d="${path(ROUTE)}" fill="none" stroke="#7d88a6" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"/>`;
+  if(solved>0) svg+=`<path d="${path(ROUTE.slice(0,STOPS[solved].vi+1))}" fill="none" stroke="#14a693" stroke-width="5" stroke-linecap="round"/>`;
+  STOPS.forEach((st,i)=>{
+    const [x,y]=P([st.lat,st.lng]), state=pinState(i);
+    const fill={done:"#14a693",now:"#f5a300",goal:"#e2445c",future:"#7d88a6"}[state];
+    svg+=`<circle cx="${x}" cy="${y}" r="14" fill="${fill}" stroke="#fff" stroke-width="3"/><text x="${x}" y="${y+5}" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="system-ui">${state==="done"?"✓":state==="future"?"?":i+1}</text>`;
+  });
+  if(gps && gps[0]>minLa-.01 && gps[0]<maxLa+.01 && gps[1]>minLo-.01 && gps[1]<maxLo+.01){ const [x,y]=P(gps); svg+=`<circle cx="${x}" cy="${y}" r="8" fill="#2d8cff" stroke="#fff" stroke-width="3"/>`; }
+  $("#map").innerHTML=svg+"</svg>";
+}
+
+/* ================= cabecera ================= */
+function renderHeader(){
+  $("#km").textContent = `${fmtDist(TOTAL)} a pie · ${STOPS.length} paradas`;
+  const solved=solvedUpTo();
+  $("#dots").innerHTML = STOPS.map((s,i)=>`<div class="dot ${i<=solved?"done":(i===S.i && S.screen!=="intro")?"now":""}"></div>`).join("");
+  $("#timer").textContent = S.t0 ? "⏱ "+fmtMin(elapsedMin()) : "";
+  $("#bSound").textContent = soundOn ? "🔊" : "🔇";
+}
+function wordsStrip(){
+  const got=solvedUpTo()+1;
+  return `<div class="words" aria-label="Frase secreta: ${got} de 6 palabras">${CFG.phrase.map((w,i)=> i<got ? `<span class="w got">${esc(w)}</span>` : `<span class="w">· · ·</span>`).join("")}</div>`;
+}
+// Aviso de luz: la ruta solo se recomienda de día.
+function daylightHtml(fromStop){
+  const left=STOPS.slice(fromStop).reduce((m,s)=>m+s.leg,0)/WALK + (STOPS.length-fromStop)*5;
+  const now=new Date(), noon=new Date(now); noon.setHours(12,0,0,0);
+  const t=sunTimes(noon);
+  if(now<t.rise) return `<div class="warn">🌙 Todavía es de noche. Por seguridad, espera a que amanezca (hoy a las <b>${hhmm(t.rise)}</b>) para hacer la ruta.</div>`;
+  if(now>t.set) return `<div class="warn">🌙 Ya es de noche. Por seguridad, sigue mañana con luz: amanece a las <b>${hhmm(sunTimes(new Date(noon.getTime()+86400000)).rise)}</b>. Tu progreso queda guardado.</div>`;
+  if((t.set-now)/60000 < left+20) return `<div class="warn">🌇 Anochece a las <b>${hhmm(t.set)}</b> y te quedan unos ${fmtMin(left)} de ruta. Date prisa o sigue mañana: tu progreso queda guardado.</div>`;
+  return `<p class="small muted">☀️ Hoy anochece a las ${hhmm(t.set)}: tienes luz de sobra para el resto de la ruta.</p>`;
+}
+const starsHtml = n => `<span class="stars" aria-label="${n} de 3 estrellas">${"★".repeat(n)}<i>${"★".repeat(3-n)}</i></span>`;
+
+/* ================= pantallas ================= */
+const view=$("#view");
+function go(screen, i){
+  S.screen=screen; if(i!==undefined) S.i=i; save();
+  render(true); window.scrollTo({top:0,behavior:"smooth"});
+}
+function render(focus){
+  const creator = location.hash==="#crear";
+  $("#mapcard").hidden = creator;
+  renderHeader();
+  if(creator){ vCreator(); return; }
+  ({intro:vIntro, travel:vTravel, challenge:vChallenge, reward:vReward, final:vFinal})[S.screen]();
+  drawMap(focus);
+  if(focus){ const h=$("#view h2"); if(h){ h.setAttribute("tabindex","-1"); h.focus({preventScroll:true}); } }
+}
+
+function vIntro(){
+  const hi = CFG.recipient ? `¡Hola, ${esc(CFG.recipient)}!` : "¡Hola!";
+  view.innerHTML=`
+  <section class="card">
+    <div class="big">🎁</div>
+    <span class="tag">Misión secreta</span>
+    <h2>${hi} Tienes un regalo esperándote</h2>
+    <p>Está guardado en una taquilla <b>Amazon Locker</b> de Montpellier, y solo se abre con un código QR… que también está bajo llave.</p>
+    <div class="stat3"><div><b>${fmtDist(TOTAL)}</b><span>a pie</span></div><div><b>≈ ${fmtMin(TOTAL/WALK)}</b><span>de paseo</span></div><div><b>${STOPS.length}</b><span>pruebas</span></div></div>
+    <h3>Cómo funciona</h3>
+    <ol class="steps">
+      <li>Ve a cada parada con el mapa, la flecha o Google Maps. La siguiente se desvela al superar la anterior.</li>
+      <li>Supera la prueba de la parada. Si te atascas, pide pistas (cuestan estrellas).</li>
+      <li>Cada prueba te da una palabra de la <b>frase secreta</b>.</li>
+      <li>En el locker, ordena la frase y el QR aparecerá.</li>
+    </ol>
+    ${CFG.deadline ? `<div class="warn">⏳ El regalo hay que recogerlo antes del <b>${esc(fmtDate(CFG.deadline))}</b>.</div>` : ""}
+    <div class="fact"><b>Antes de salir:</b> haz la ruta de día (los parques cierran por la noche), cruza siempre por los pasos de peatones y lleva el móvil cargado y agua. Hay algunos tramos con escaleras. En cada parada verás los cruces a los que prestar atención. En caso de emergencia, llama al <a href="tel:112">112</a>.</div>
+    ${daylightHtml(0)}
+    <div class="row">
+      <button class="btn" id="go" type="button">Aceptar la misión</button>
+      <button class="btn alt" id="gpsb" type="button">📍 Activar GPS</button>
+    </div>
+    <p class="small muted">El GPS solo se usa en tu móvil para mostrar tu posición y la distancia a cada parada; no se envía a ningún sitio.</p>
+  </section>`;
+  $("#go").onclick=()=>{ play("win"); S.t0=S.t0||Date.now(); go("challenge",0); };
+  $("#gpsb").onclick=()=>startGps(true);
+}
+
+function vTravel(){
+  const s=STOPS[S.i], maps=`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=walking`;
+  const canCompass = typeof DeviceOrientationEvent!=="undefined";
+  view.innerHTML=`
+  <section class="card">
+    <span class="tag">Parada ${S.i+1} de ${STOPS.length} · en camino</span>
+    <div class="big">${s.icon}</div>
+    <h2>${esc(s.name)}</h2>
+    <p class="muted">${esc(s.sub)}</p>
+    <p>${esc(s.arrive)}</p>
+    ${s.caution?`<div class="warn">⚠️ <b>Precaución:</b> ${esc(s.caution)}</div>`:""}
+    ${daylightHtml(S.i)}
+    <div class="legs"><span>Tramo: <b>${fmtDist(s.leg)}</b></span><span>A pie: <b>≈ ${fmtMin(s.leg/WALK)}</b></span></div>
+    <div class="nav" id="nav">
+      <div class="compass off"><span class="n">N</span>
+        <svg id="arrow" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6 L78 86 L50 70 L22 86 Z" fill="currentColor" style="color:var(--gold)"/></svg>
+      </div>
+      <div><div class="navd" id="navDist">—</div><div class="small muted" id="navDir"></div></div>
+    </div>
+    <div class="zone" id="zone" ${S.arrived[S.i]?"":"hidden"}>📍 ¡Estás en la zona! Busca el lugar y pulsa «Ya he llegado».</div>
+    <div class="row">
+      <button class="btn alt sm" id="gpsb" type="button">📍 GPS</button>
+      ${canCompass?'<button class="btn alt sm" id="compb" type="button">🧭 Brújula</button>':""}
+      <a class="btn alt sm" href="${maps}" target="_blank" rel="noopener">Abrir en Google Maps</a>
+    </div>
+    <div class="row">
+      <button class="btn wide ${S.arrived[S.i]?"pulse":""}" id="here" type="button">${S.i===LAST?"¡Estoy en el locker!":"Ya he llegado"}</button>
+      ${DEV?'<button class="btn alt sm" id="skip" type="button">[dev] saltar</button>':""}
+    </div>
+  </section>
+  ${wordsStrip()}`;
+  $("#gpsb").onclick=()=>startGps(true);
+  if(canCompass) $("#compb").onclick=()=>{ if(watchId===null) startGps(true); startCompass(); };
+  $("#here").onclick=async()=>{
+    const d=distTo(S.i);
+    if(d!==null && d>RADIUS*2){
+      const r=await modal("¿Seguro que has llegado?",`<p>Según el GPS aún estás a <b>${fmtDist(d)}</b> de la parada${acc?` (precisión ±${Math.round(acc)} m)`:""}.</p><p class="muted small">Si el GPS falla, puedes continuar igualmente.</p>`,
+        [{id:"go",label:"Sí, estoy aquí"},{id:"no",label:"Seguir caminando",cls:"alt"}]);
+      if(r!=="go") return;
+    }
+    go("challenge");
+  };
+  if(DEV) $("#skip").onclick=()=>go("challenge");
+  updateNav();
+}
+
+function vChallenge(){
+  const s=STOPS[S.i], c=s.challenge;
+  view.innerHTML=`
+  <section class="card" id="chcard">
+    <span class="tag">Parada ${S.i+1} de ${STOPS.length} · ${esc(s.name)}</span>
+    <div class="big">${s.icon}</div>
+    <h2>${esc(s.title)}</h2>
+    <p>${esc(s.story)}</p>
+    <div id="chbody"></div>
+    <div class="msg" id="msg" role="status"></div>
+    <div id="hints"></div>
+    <div class="row"><button class="btn alt sm" id="hintb" type="button"></button>${DEV?'<button class="btn alt sm" id="win" type="button">[dev] superar</button>':""}</div>
+  </section>
+  ${wordsStrip()}`;
+  CH[c.type](c, $("#chbody"));
+  const showHints=()=>{
+    const n=S.hints[S.i]||0;
+    $("#hints").innerHTML=c.hints.slice(0,n).map(h=>`<div class="hint">💡 ${typeof h==="string"?esc(h):h.html}</div>`).join("");
+    const b=$("#hintb");
+    b.textContent = n>=c.hints.length ? "No hay más pistas" : `💡 Pedir pista (${n}/${c.hints.length}) · cuesta 1 ★`;
+    b.disabled = n>=c.hints.length;
+  };
+  $("#hintb").onclick=()=>{ S.hints[S.i]=(S.hints[S.i]||0)+1; save(); showHints(); };
+  if(DEV) $("#win").onclick=()=>win();
+  showHints();
+}
+function say(text, ok){
+  const m=$("#msg"); if(!m) return;
+  m.textContent=text; m.className="msg "+(ok?"ok":"bad");
+}
+function fail(text){
+  S.fails[S.i]=(S.fails[S.i]||0)+1; save();
+  play("fail"); buzz(80);
+  const c=STOPS[S.i].challenge, tip = S.fails[S.i]>=3 && (S.hints[S.i]||0)<c.hints.length ? " ¿Y si pides una pista?" : "";
+  say(text+tip,false);
+  const card=$("#chcard"); card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake");
+}
+let winning=false;
+function win(text){
+  if(winning) return; winning=true;
+  $$("#chbody button,#chbody input,#chbody select").forEach(x=>x.disabled=true);
+  say(text||"¡Correcto!",true); play(S.i===LAST?"final":"win"); buzz([60,40,60]);
+  S.stars[S.i]=Math.max(1, 3-(S.hints[S.i]||0)-((S.fails[S.i]||0)>=3?1:0));
+  setTimeout(()=>{
+    winning=false;
+    if(S.i===LAST){ S.t1=Date.now(); go("final"); } else go("reward");
+    burst();
+  },700);
+}
+
+/* ---- tipos de prueba ---- */
+const CH = {
+  text(c, box){
+    box.innerHTML=`${c.cipher?`<div class="cipher" aria-label="Mensaje cifrado: ${esc(c.cipher.split("").join(" "))}">${esc(c.cipher)}</div>`:""}
+      <p class="prompt">${esc(c.prompt)}</p>
+      <label class="lbl" for="ans">Tu respuesta</label>
+      <div class="inrow"><input id="ans" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" placeholder="${esc(c.placeholder||"")}"><button class="btn" id="ok" type="button">Comprobar</button></div>`;
+    const check=()=>{
+      const v=norm($("#ans").value);
+      if(!v){ say("Escribe una respuesta.",false); return; }
+      c.answers.some(a=> c.contains ? v.includes(norm(a)) : v===norm(a)) ? win() : fail("Mmm, no es eso. Prueba otra vez.");
+    };
+    $("#ok").onclick=check;
+    $("#ans").addEventListener("keydown",e=>{ if(e.key==="Enter") check(); });
+  },
+  match(c, box){
+    const opts=shuffle(c.pairs.map(p=>p[1]));
+    box.innerHTML=`<p class="prompt">${esc(c.prompt)}</p>`+c.pairs.map((p,i)=>`
+      <div class="pair" data-i="${i}"><strong id="pw${i}">${esc(p[0])}</strong>
+        <select aria-labelledby="pw${i}"><option value="">Elige…</option>${opts.map(o=>`<option>${esc(o)}</option>`).join("")}</select>
+      </div>`).join("")+`<div class="row"><button class="btn" id="ok" type="button">Comprobar</button></div>`;
+    $("#ok").onclick=()=>{
+      const rows=$$(".pair",box);
+      if(rows.some(r=>!$("select",r).value)){ say("Empareja todas las palabras.",false); return; }
+      let bad=0;
+      rows.forEach(r=>{ const good=$("select",r).value===c.pairs[+r.dataset.i][1]; r.classList.toggle("right",good); r.classList.toggle("wrong",!good); if(!good) bad++; });
+      bad ? fail(bad===1?"Hay una pareja mal (marcada en rojo).":`Hay ${bad} parejas mal (marcadas en rojo).`) : win();
+    };
+  },
+  quiz(c, box){
+    box.innerHTML=c.questions.map((q,qi)=>`
+      <fieldset data-q="${qi}"><legend>${qi+1}. ${esc(q.q)}</legend>
+      ${q.opts.map((o,oi)=>`<label class="opt"><input type="radio" name="q${qi}" value="${oi}"><span>${esc(o)}</span></label>`).join("")}
+      </fieldset>`).join("")+`<div class="row"><button class="btn" id="ok" type="button">Comprobar</button></div>`;
+    $("#ok").onclick=()=>{
+      const sets=$$("fieldset",box);
+      if(sets.some(f=>!$("input:checked",f))){ say("Responde a todas las preguntas.",false); return; }
+      const bad=[];
+      sets.forEach((f,qi)=>{ const good=+$("input:checked",f).value===c.questions[qi].a; f.classList.toggle("wrong",!good); if(!good) bad.push(qi+1); });
+      bad.length ? fail(`Revisa ${bad.length>1?"las preguntas":"la pregunta"} ${bad.join(" y ")}.`) : win();
+    };
+  },
+  jugs(c, box){
+    let a=0, b=0, moves=0;
+    box.innerHTML=`<p class="prompt">${esc(c.prompt)}</p>
+      <div class="jugs">
+        <div class="jugwrap"><div class="jug" id="ja" style="height:${c.a*28}px"><div class="water"></div></div><b>${c.a} L · <span id="va">0</span> L</b></div>
+        <div class="jugwrap"><div class="jug" id="jb" style="height:${c.b*28}px"><div class="water"></div></div><b>${c.b} L · <span id="vb">0</span> L</b></div>
+      </div>
+      <div class="ctrls">
+        <button class="btn alt sm" type="button" data-m="fa">Llenar ${c.a} L</button><button class="btn alt sm" type="button" data-m="fb">Llenar ${c.b} L</button>
+        <button class="btn alt sm" type="button" data-m="ea">Vaciar ${c.a} L</button><button class="btn alt sm" type="button" data-m="eb">Vaciar ${c.b} L</button>
+        <button class="btn alt sm" type="button" data-m="ab">${c.a} L → ${c.b} L</button><button class="btn alt sm" type="button" data-m="ba">${c.b} L → ${c.a} L</button>
+      </div>
+      <p class="small muted">Movimientos: <span id="mv">0</span> · <button class="btn alt sm" id="rst" type="button">Empezar de nuevo</button></p>`;
+    const draw=()=>{
+      $("#ja .water").style.height=(a/c.a*100)+"%"; $("#jb .water").style.height=(b/c.b*100)+"%";
+      $("#va").textContent=a; $("#vb").textContent=b; $("#mv").textContent=moves;
+    };
+    const ops={ fa:()=>{a=c.a}, fb:()=>{b=c.b}, ea:()=>{a=0}, eb:()=>{b=0},
+      ab:()=>{const t=Math.min(a,c.b-b); a-=t; b+=t;}, ba:()=>{const t=Math.min(b,c.a-a); b-=t; a+=t;} };
+    $$("[data-m]",box).forEach(btn=>btn.onclick=()=>{
+      ops[btn.dataset.m](); moves++; draw();
+      if(a===c.goal) win(`¡${c.goal} litros exactos en ${moves} movimientos!`);
+      else if(moves===12) say("Llevas muchos movimientos: prueba a empezar de nuevo o pide una pista.",false);
+    });
+    $("#rst").onclick=()=>{ a=b=moves=0; say("",true); draw(); };
+    draw();
+  },
+  order(c, box){
+    const target=CFG.phrase;
+    if(!Array.isArray(S.order) || S.order.length!==target.length){
+      do { S.order=shuffle(target.map((w,i)=>i)); } while(S.order.every((v,k)=>v===k));
+      save();
+    }
+    let pick=[];
+    box.innerHTML=`<p class="prompt">Toca las palabras en el orden correcto (toca una de arriba para quitarla):</p>
+      <div class="line chips" id="line" aria-label="Tu frase"></div>
+      <div class="chips" id="pool" aria-label="Palabras disponibles"></div>
+      <div class="row"><button class="btn" id="ok" type="button">Comprobar</button><button class="btn alt" id="clr" type="button">Borrar</button></div>`;
+    const draw=()=>{
+      $("#line").innerHTML=pick.map(i=>`<button class="chip" type="button" data-r="${i}">${esc(target[i])}</button>`).join("");
+      $("#pool").innerHTML=S.order.map(i=>`<button class="chip ${pick.includes(i)?"used":""}" type="button" data-a="${i}">${esc(target[i])}</button>`).join("");
+      $$("[data-a]",box).forEach(b=>b.onclick=()=>{ pick.push(+b.dataset.a); draw(); });
+      $$("[data-r]",box).forEach(b=>b.onclick=()=>{ pick=pick.filter(x=>x!==+b.dataset.r); draw(); });
+    };
+    $("#clr").onclick=()=>{ pick=[]; draw(); };
+    // dos palabras iguales en la frase valen en cualquier orden: se compara el texto
+    $("#ok").onclick=()=>{
+      if(pick.length<target.length){ say(`Usa las ${target.length} palabras.`,false); return; }
+      pick.map(i=>target[i]).join(" ")===target.join(" ") ? win() : fail("Ese no es el orden. Recuerda cómo las fuiste ganando.");
+    };
+    draw();
+  }
+};
+
+/* ---- fotos ---- */
+const photoMem={};
+const getPhoto = i => photoMem[i] || lsGet(K.photo(i));
+function compressImage(file, max, type, q){
+  return new Promise((res,rej)=>{
+    const url=URL.createObjectURL(file), im=new Image();
+    im.onload=()=>{
+      const sc=Math.min(1,max/Math.max(im.naturalWidth,im.naturalHeight)), c=document.createElement("canvas");
+      c.width=Math.round(im.naturalWidth*sc); c.height=Math.round(im.naturalHeight*sc);
+      const g=c.getContext("2d");
+      if(type==="image/png"){ g.fillStyle="#fff"; g.fillRect(0,0,c.width,c.height); }
+      g.drawImage(im,0,0,c.width,c.height); URL.revokeObjectURL(url); res(c.toDataURL(type,q));
+    };
+    im.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("imagen no válida")); };
+    im.src=url;
+  });
+}
+function photoBlock(i){
+  const p=getPhoto(i);
+  return `<div class="photo" id="photo${i}">
+    <div class="ph">${p?`<img src="${p}" alt="Tu foto en ${esc(STOPS[i].name)}">`:"📸"}</div>
+    <div class="tx"><b>Misión foto (opcional)</b><div class="small muted">${esc(STOPS[i].photo)}</div>
+      <label class="btn alt sm" style="margin-top:6px" for="phin${i}">${p?"Cambiar foto":"Hacer foto"}</label>
+      <input class="vh" type="file" id="phin${i}" accept="image/*"></div>
+  </div>`;
+}
+function bindPhoto(i, after){
+  const inp=$("#phin"+i); if(!inp) return;
+  inp.onchange=async()=>{
+    const f=inp.files[0]; if(!f) return;
+    try{
+      const data=await compressImage(f,900,"image/jpeg",.72);
+      photoMem[i]=data;
+      if(!lsSet(K.photo(i),data)) toast("Foto guardada solo hasta que cierres la página (memoria llena)");
+      else toast("¡Foto guardada en el álbum!");
+      const box=$("#photo"+i); if(box){ box.outerHTML=photoBlock(i); bindPhoto(i,after); }
+      if(after) after();
+    }catch(e){ toast("No se pudo leer la foto"); }
+  };
+}
+
+function vReward(){
+  const s=STOPS[S.i], next=STOPS[S.i+1], st=S.stars[S.i]||3;
+  view.innerHTML=`
+  <section class="card">
+    <span class="tag">Prueba superada</span>
+    <div>${starsHtml(st)}</div>
+    <h2>Has ganado la palabra «${esc(CFG.phrase[S.i])}»</h2>
+    ${wordsStrip()}
+    <div class="fact"><b>¿Sabías que…?</b> ${esc(s.fact)}</div>
+    ${photoBlock(S.i)}
+    <h3>Siguiente parada: ${esc(next.name)}</h3>
+    <p class="muted">${esc(next.sub)} · ${fmtDist(next.leg)} a pie (≈ ${fmtMin(next.leg/WALK)})</p>
+    <div class="row"><button class="btn wide" id="nx" type="button">Rumbo a la parada ${S.i+2} →</button></div>
+  </section>`;
+  bindPhoto(S.i);
+  $("#nx").onclick=()=>go("travel",S.i+1);
+}
+
+/* ---- pantalla final ---- */
+let qrCache;   // undefined = sin buscar todavía
+function findQr(cb){
+  if(qrCache!==undefined) return cb(qrCache);
+  const done=src=>{ qrCache=src; cb(src); };
+  const hidden=revealQr(); if(hidden) return done(hidden);
+  const local=lsGet(K.qr); if(local) return done(local);
+  const files=["qr.png","qr.jpg","qr.jpeg","qr.webp"];
+  const tryFile=k=>{
+    if(k>=files.length) return done(null);
+    const im=new Image(); im.onload=()=>done(files[k]); im.onerror=()=>tryFile(k+1); im.src=files[k];
+  };
+  tryFile(0);
+}
+function vFinal(){
+  const s=STOPS[LAST], maps=`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=walking`;
+  const nPhotos=STOPS.filter((x,i)=>getPhoto(i)).length, code=revealCode();
+  view.innerHTML=`
+  <section class="card">
+    <div class="lock" id="lock" aria-hidden="true">🔒</div>
+    <span class="tag">Misión cumplida</span>
+    <h2>«${esc(phraseText())}»</h2>
+    <div class="stat3"><div><b>${fmtMin(elapsedMin())}</b><span>de aventura</span></div><div><b>${starsTotal()}/${STOPS.length*3}</b><span>estrellas</span></div><div><b>${fmtDist(TOTAL)}</b><span>recorridos</span></div></div>
+    ${CFG.message ? `<div class="letter">${escBr(CFG.message)}${CFG.from?`<div class="sig">— ${esc(CFG.from)}</div>`:""}</div>` : ""}
+    <h3>Tu código para abrir el locker</h3>
+    <div id="qrslot"><div class="qrbox empty">Buscando el código…</div></div>
+    ${CFG.deadline ? `<div class="warn">⏳ Recógelo antes del <b>${esc(fmtDate(CFG.deadline))}</b>.</div>` : ""}
+    <details><summary>Cómo abrir el locker</summary>
+      <ol class="steps">
+        <li>Ponte delante del Amazon Locker (${esc(s.sub)}).</li>
+        <li>Sube el brillo del móvil al máximo y pulsa el botón de pantalla completa.</li>
+        <li>Acerca el código al lector del locker, a unos 10-15 cm${code?", o tecléalo si la pantalla del locker te lo pide":""}.</li>
+        <li>Se abrirá una puerta: ¡tu regalo está dentro!</li>
+      </ol>
+      <a href="${maps}" target="_blank" rel="noopener">Ver el locker en Google Maps</a>
+    </details>
+    ${photoBlock(LAST)}
+    <h3>Álbum de la aventura</h3>
+    <div class="album" id="album"></div>
+    <div class="row"><button class="btn alt wide" id="dl" type="button">🖼️ Guardar recuerdo de la aventura</button></div>
+    <p class="small muted">${nPhotos?"":"Aún no tienes fotos: el recuerdo se creará con los iconos de cada parada."}</p>
+  </section>`;
+  setTimeout(()=>{ const l=$("#lock"); if(l){ l.textContent="🔓"; l.classList.add("open"); } },600);
+  const drawAlbum=()=>{ $("#album").innerHTML=STOPS.map((st,i)=>{ const p=getPhoto(i); return `<figure>${p?`<img src="${p}" alt="">`:st.icon}<figcaption>${i+1}. ${esc(st.name)}</figcaption></figure>`; }).join(""); };
+  drawAlbum(); bindPhoto(LAST, drawAlbum);
+  $("#dl").onclick=e=>saveCollage(e.currentTarget);
+  findQr(src=>{
+    const slot=$("#qrslot"); if(!slot) return;
+    let html="";
+    if(code) html+=`<div class="qrbox bar">${barcodeSvg(code)}<div class="digits">${esc(code)}</div></div>
+      <div class="row"><button class="btn wide" id="fullBar" type="button">Ver código de barras a pantalla completa</button></div>
+      <p class="small muted">Si la pantalla del locker te pide teclearlo, el código es <span class="code">${esc(code)}</span></p>`;
+    if(src) html+=`${code?"<h3>También tienes el QR</h3>":""}<div class="qrbox"><img src="${esc(src)}" alt="Código QR del Amazon Locker"></div>
+      <div class="row"><button class="btn ${code?"alt ":""}wide" id="fullQr" type="button">Ver QR a pantalla completa</button></div>`;
+    if(html){
+      slot.innerHTML=html; fitBarcodes(slot);
+      const fb=$("#fullBar"); if(fb) fb.onclick=()=>openFull(barcodeSvg(code), code);
+      const fq=$("#fullQr"); if(fq) fq.onclick=()=>openFull(`<img src="${esc(src)}" alt="Código QR del Amazon Locker">`, code);
+    } else {
+      slot.innerHTML=`<div class="qrbox empty"><p><b>Este juego aún no tiene el código del locker.</b></p>
+        <p class="small">Quien preparó el regalo debe añadirlo desde el modo creador (añadiendo <code>#crear</code> a la dirección). Mientras, puedes elegir una imagen del QR aquí; solo quedará en este dispositivo.</p>
+        <label class="btn alt sm" for="qrpick">Elegir imagen del QR</label><input class="vh" type="file" id="qrpick" accept="image/*"></div>
+        <p class="small muted">También encontrarás el código en el correo o la app de Amazon del pedido.</p>`;
+      $("#qrpick").onchange=async e=>{
+        const f=e.target.files[0]; if(!f) return;
+        try{ const d=await compressImage(f,1000,"image/png"); lsSet(K.qr,d); qrCache=undefined; vFinal(); }catch(err){ toast("No se pudo leer la imagen"); }
+      };
+    }
+  });
+}
+function openFull(inner, code){
+  const box=$("#qrfullbox"); box.innerHTML=inner;
+  $("#qrfullcode").textContent=code||"";
+  $("#qrfull").classList.add("on"); fitBarcodes(box,1100); keepAwake();
+}
+$("#qrfull").onclick=()=>{ $("#qrfull").classList.remove("on"); releaseAwake(); };
+window.addEventListener("resize",()=>{ fitBarcodes($("#view")); fitBarcodes($("#qrfullbox"),1100); });
+let wake=null;
+async function keepAwake(){ try{ if(navigator.wakeLock) wake=await navigator.wakeLock.request("screen"); }catch(e){} }
+function releaseAwake(){ try{ if(wake) wake.release(); }catch(e){} wake=null; }
+
+/* ---- recuerdo (imagen para guardar o compartir) ---- */
+function loadImg(src){ return new Promise(res=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
+function rrect(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+async function makeCollage(){
+  const W=1080, H=1580, c=document.createElement("canvas"); c.width=W; c.height=H;
+  const g=c.getContext("2d"), head='"Fredoka", system-ui, sans-serif', body="system-ui, -apple-system, 'Segoe UI', sans-serif";
+  try{ if(document.fonts) await document.fonts.load('700 60px "Fredoka"'); }catch(e){}
+  const bg=g.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#1a2c55"); bg.addColorStop(1,"#0b1324");
+  g.fillStyle=bg; g.fillRect(0,0,W,H); g.textAlign="center";
+  g.fillStyle="#f7c04a"; g.font=`700 68px ${head}`; g.fillText("La Misión del Locker",W/2,112);
+  const when=new Date(S.t1||Date.now()).toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+  g.fillStyle="#eef3ff"; g.font=`600 34px ${body}`; g.fillText((CFG.recipient?CFG.recipient+" · ":"")+"Montpellier · "+when,W/2,170,W-80);
+  g.fillStyle="#a9b8d9"; g.font=`500 30px ${body}`; g.fillText(`${fmtDist(TOTAL)} a pie · ${fmtMin(elapsedMin())} · ★ ${starsTotal()}/${STOPS.length*3}`,W/2,220);
+  const cw=470, ch=330, xs=[50,560], y0=262, step=ch+78;
+  for(let i=0;i<STOPS.length;i++){
+    const x=xs[i%2], y=y0+Math.floor(i/2)*step, src=getPhoto(i), im=src?await loadImg(src):null;
+    g.save(); rrect(g,x,y,cw,ch,26); g.clip();
+    if(im){ const k=Math.max(cw/im.width,ch/im.height), w=im.width*k, h=im.height*k; g.drawImage(im,x+(cw-w)/2,y+(ch-h)/2,w,h); }
+    else { g.fillStyle="#22365f"; g.fillRect(x,y,cw,ch); g.fillStyle="#eef3ff"; g.font=`130px ${body}`; g.fillText(STOPS[i].icon,x+cw/2,y+ch/2+46); }
+    g.restore();
+    g.fillStyle="#eef3ff"; g.font=`600 30px ${body}`; g.fillText(`${i+1}. ${STOPS[i].name}`,x+cw/2,y+ch+44,cw);
+  }
+  g.fillStyle="#f7c04a"; g.font=`700 44px ${head}`; g.fillText("«"+phraseText()+"»",W/2,H-60,W-80);
+  return new Promise(res=>c.toBlob(res,"image/jpeg",.9));
+}
+function download(blob,name){
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=name;
+  document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1500);
+}
+async function saveCollage(btn){
+  const label=btn.textContent; btn.disabled=true; btn.textContent="Creando imagen…";
+  try{
+    const blob=await makeCollage(), name="mision-del-locker.jpg";
+    const file=typeof File==="function" ? new File([blob],name,{type:"image/jpeg"}) : null;
+    const mobile=matchMedia("(pointer:coarse)").matches;
+    if(mobile && file && navigator.canShare && navigator.canShare({files:[file]})){
+      try{ await navigator.share({files:[file],title:"La Misión del Locker"}); }catch(e){ if(e.name!=="AbortError") download(blob,name); }
+    } else download(blob,name);
+  }catch(e){ toast("No se pudo crear la imagen"); }
+  btn.disabled=false; btn.textContent=label;
+}
+
+/* ---- confeti ---- */
+function burst(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv=$("#fx"), g=cv.getContext("2d"); cv.width=innerWidth; cv.height=innerHeight;
+  const cols=["#f7c04a","#3ddbc6","#ff8a98","#6cc4ff","#ffffff"];
+  const ps=Array.from({length:120},()=>({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*13,vy:-Math.random()*12-3,r:Math.random()*5+3,c:cols[Math.random()*cols.length|0],a:1,s:Math.random()*6}));
+  let f=0;
+  (function tick(){
+    g.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.vy+=.33; p.vx*=.99; p.a-=.009; p.s+=.2; g.globalAlpha=Math.max(p.a,0); g.fillStyle=p.c; g.fillRect(p.x,p.y,p.r,p.r*(1.2+Math.sin(p.s)*.6)); });
+    if(++f<130) requestAnimationFrame(tick); else g.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+
+/* ================= modo creador (#crear) ================= */
+function buildExport(cfg){
+  const json=JSON.stringify(cfg).replace(/</g,"\\u003c");
+  return PRISTINE
+    .replace(/(<script type="application\/json" id="gift-config">)[\s\S]*?(<\/script>)/, (m,a,b)=>a+json+b)
+    .replace(/<html([^>]*?)\sdata-theme="[^"]*"/, "<html$1");
+}
+function vCreator(){
+  let qr=revealQr();
+  view.innerHTML=`
+  <section class="card">
+    <span class="tag">Modo creador</span>
+    <h2>Prepara el regalo</h2>
+    <p>Rellena los datos, añade el QR del locker y descarga tu juego personalizado: <b>un único archivo HTML</b> con todo dentro, listo para enviar.</p>
+    <label class="lbl" for="cRecipient">Nombre de quien recibe el regalo</label><input type="text" id="cRecipient" value="${esc(CFG.recipient)}" maxlength="40">
+    <label class="lbl" for="cFrom">Tu nombre o firma</label><input type="text" id="cFrom" value="${esc(CFG.from)}" maxlength="60">
+    <label class="lbl" for="cMsg">Mensaje que verá al terminar</label><textarea id="cMsg" maxlength="1200" placeholder="Ej.: ¡Feliz cumpleaños! Espero que te guste…">${esc(CFG.message)}</textarea>
+    <label class="lbl" for="cQr">Imagen del QR del Amazon Locker (recórtala para que se vea solo el QR)</label>
+    <input type="file" id="cQr" accept="image/*">
+    <div id="cQrPrev"></div>
+    <label class="lbl" for="cCode">Código de recogida (se convertirá en código de barras)</label><input type="text" id="cCode" value="${esc(revealCode())}" maxlength="40" inputmode="numeric" autocomplete="off">
+    <div id="cCodePrev"></div>
+    <label class="lbl" for="cDate">Fecha límite de recogida (opcional)</label><input type="date" id="cDate" value="${esc(CFG.deadline)}">
+    <label class="lbl" for="cPhrase">Frase secreta: exactamente 6 palabras</label><input type="text" id="cPhrase" value="${esc(CFG.phrase.join(" "))}">
+    <div class="msg" id="cOut" role="status"></div>
+    <div class="row">
+      <button class="btn" id="cDl" type="button">⬇️ Descargar juego personalizado</button>
+      <button class="btn alt" id="cTest" type="button">Probar en este navegador</button>
+    </div>
+    <div class="row"><button class="btn alt sm" id="cClear" type="button">Borrar los ajustes de este navegador</button><a class="btn alt sm" href="#">Volver al juego</a></div>
+    <div class="fact"><b>Consejos</b>
+      <ul class="small" style="margin:.4em 0;padding-left:1.2em">
+        <li>El QR queda guardado dentro del archivo, ofuscado con la frase secreta para que no se vea a simple vista.</li>
+        <li>Los códigos de Amazon Locker caducan a los pocos días de la entrega: prepara el juego cuando el paquete ya esté en el locker.</li>
+        <li>Para jugar desde el móvil, lo más fiable es subir el archivo a una web (por ejemplo, Netlify Drop o GitHub Pages) y enviar el enlace. Si lo mandas como archivo, ábrelo en Chrome o Safari.</li>
+        <li>Para probar el juego sin caminar, abre el archivo con <code>#dev</code> al final de la dirección: aparecerán botones para saltar pasos.</li>
+      </ul>
+    </div>
+  </section>`;
+  const prev=()=>{ $("#cQrPrev").innerHTML = qr ? `<div class="qrbox" style="max-width:200px"><img src="${qr}" alt="Vista previa del QR"></div><button class="btn alt sm" id="cQrDel" type="button">Quitar QR</button>` : `<p class="small muted">Sin QR todavía.</p>`; const d=$("#cQrDel"); if(d) d.onclick=()=>{ qr=null; $("#cQr").value=""; prev(); }; };
+  prev();
+  $("#cQr").onchange=async e=>{
+    const f=e.target.files[0]; if(!f) return;
+    try{ qr=await compressImage(f,1000,"image/png"); prev(); }catch(err){ say2("No se pudo leer la imagen.",false); }
+  };
+  const say2=(t,ok)=>{ const o=$("#cOut"); o.textContent=t; o.className="msg "+(ok?"ok":"bad"); };
+  const codeVal=()=>$("#cCode").value.replace(/\s+/g,"");
+  const codePrev=()=>{
+    const c=codeVal(), svg=c?barcodeSvg(c):"";
+    $("#cCodePrev").innerHTML = !c ? "" : svg ? `<div class="qrbox bar" style="margin-left:0">${svg}<div class="digits">${esc(c)}</div></div>` : `<p class="msg bad">El código solo puede tener letras sin tilde, números y signos básicos.</p>`;
+    fitBarcodes($("#cCodePrev"));
+  };
+  $("#cCode").oninput=codePrev; codePrev();
+  const collect=()=>{
+    const phrase=$("#cPhrase").value.trim().split(/\s+/).filter(Boolean).map(w=>w.toUpperCase());
+    if(phrase.length!==6){ say2(`La frase debe tener 6 palabras (ahora tiene ${phrase.length}).`,false); return null; }
+    if(!norm(phrase.join(""))){ say2("La frase necesita alguna letra o número.",false); return null; }
+    const code=codeVal();
+    if(code && !code128Bits(code)){ say2("Revisa el código de recogida: tiene caracteres no válidos.",false); return null; }
+    return {v:2, recipient:$("#cRecipient").value.trim(), from:$("#cFrom").value.trim(), message:$("#cMsg").value.trim(),
+      lockerCode:"", codeX: code ? obfuscate(code,phrase) : "", deadline:$("#cDate").value, phrase, qr: qr ? obfuscate(qr,phrase) : ""};
+  };
+  $("#cDl").onclick=()=>{
+    const cfg=collect(); if(!cfg) return;
+    if(!cfg.qr && !cfg.codeX) say2("Ojo: lo descargas sin código ni QR. Podrás añadirlos más tarde.",false); else say2("¡Listo! Revisa tu carpeta de descargas.",true);
+    const slug=norm(cfg.recipient).slice(0,20);
+    download(new Blob([buildExport(cfg)],{type:"text/html"}), `regalo${slug?"-"+slug:""}.html`);
+  };
+  $("#cTest").onclick=()=>{
+    const cfg=collect(); if(!cfg) return;
+    if(!lsSet(K.cfg,JSON.stringify(cfg))){ say2("No hay espacio para guardar los ajustes en este navegador (prueba con un QR más pequeño).",false); return; }
+    loadCfg(); qrCache=undefined; S=NEW_STATE(); save(); clearPhotos();
+    toast("Ajustes guardados en este navegador");
+    try{ history.replaceState(null,"",location.pathname+location.search); render(true); }catch(e){ location.hash=""; }
+  };
+  $("#cClear").onclick=()=>{ lsDel(K.cfg); lsDel(K.qr); loadCfg(); qrCache=undefined; vCreator(); toast("Ajustes locales borrados"); };
+}
+function clearPhotos(){ STOPS.forEach((s,i)=>{ lsDel(K.photo(i)); delete photoMem[i]; }); }
+
+/* ================= ayuda, tema, sonido, reinicio ================= */
+function showHelp(){
+  const cur=STOPS[S.i], locker=STOPS[LAST];
+  const link=(s,t)=>`<a href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=walking" target="_blank" rel="noopener">${t}</a>`;
+  modal("Cómo se juega",`
+    <ol class="steps">
+      <li>Camina hasta cada parada. Con el GPS verás tu posición en el mapa, la distancia y una flecha; con la brújula, la flecha apunta directamente a la parada.</li>
+      <li>Al llegar, pulsa «Ya he llegado» y supera la prueba. Cada pista que pidas cuesta una estrella.</li>
+      <li>Cada prueba te da una palabra. En el locker, ordénalas y obtendrás el QR.</li>
+    </ol>
+    <p>Tu progreso se guarda en este móvil: puedes cerrar la página y seguir después.</p>
+    <h3>¿Te has perdido?</h3>
+    <p>${S.screen==="intro"?"":`${link(cur,"Cómo llegar a la parada actual ("+esc(cur.name)+")")}<br>`}${link(locker,"Ir directamente al locker")} (gasolinera Eni, 544 Rue Paul Rimbaud).</p>
+    <p>Si en algún momento no te sientes a gusto, ve directamente al locker o deja la ruta para otro momento: tu progreso queda guardado. En caso de emergencia, llama al <a href="tel:112"><b>112</b></a>.</p>
+    <p class="small muted">Si el mapa sale en blanco o con un aviso, pulsa «🔁 Mapa» para cambiar de servidor. Mapas: © OpenStreetMap y sus colaboradores, Esri, OSM France, OSM DE, CyclOSM y OpenTopoMap.</p>`,
+    [{id:"ok",label:"Entendido"}]);
+}
+function applyTheme(t){
+  if(t) document.documentElement.setAttribute("data-theme",t); else document.documentElement.removeAttribute("data-theme");
+  const dark = t ? t==="dark" : !matchMedia("(prefers-color-scheme: light)").matches;
+  $('meta[name="theme-color"]').setAttribute("content", dark ? "#0e1729" : "#f4f1ea");
+}
+$("#bTheme").onclick=()=>{
+  const cur=document.documentElement.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
+  const t=cur==="dark"?"light":"dark"; lsSet(K.theme,t); applyTheme(t);
+  toast(t==="light"?"Tema claro: se lee mejor al sol":"Tema oscuro");
+};
+$("#bSound").onclick=()=>{ soundOn=!soundOn; lsSet(K.sound,soundOn?"1":"0"); renderHeader(); if(soundOn) play("win"); };
+$("#bHelp").onclick=showHelp; $("#fHelp").onclick=showHelp;
+$("#fReset").onclick=async()=>{
+  const r=await modal("¿Reiniciar la aventura?","<p>Se borrarán el progreso, las estrellas y las fotos de este móvil.</p>",[{id:"y",label:"Sí, reiniciar"},{id:"n",label:"Cancelar",cls:"alt"}]);
+  if(r!=="y") return;
+  S=NEW_STATE(); save(); clearPhotos(); render(true); window.scrollTo({top:0});
+};
+$("#mMe").onclick=()=>startGps(true);
+$("#mStop").onclick=()=>{ if(map){ const a=STOPS[S.i]; map.setView([a.lat,a.lng],17); } };
+$("#mRoute").onclick=()=>{ if(map) map.fitBounds(L.latLngBounds(ROUTE),{padding:[20,20]}); };
+$("#mTiles").onclick=()=>{ if(!map) return; useTiles(tileIdx+1,0); toast("Mapa: "+TILES[tileIdx].name); };
+$("#mBig").onclick=()=>{ $("#mapcard").classList.toggle("big"); if(map) setTimeout(()=>map.invalidateSize(),280); };
+window.addEventListener("hashchange",()=>render(true));
+setInterval(()=>{ if(S.t0 && !S.t1) $("#timer").textContent="⏱ "+fmtMin(elapsedMin()); },30000);
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible" && $("#qrfull").classList.contains("on")) keepAwake(); });
+
+/* ================= arranque ================= */
+applyTheme(lsGet(K.theme));
+initMap();
+render(true);
+if(S.gps) startGps(false);
+if(DEV) window.__lq={buildExport, revealQr, revealCode, obfuscate, barcodeSvg, makeCollage, get S(){return S;}, get CFG(){return CFG;}};
+})();
+</script>
+</body>
+</html>

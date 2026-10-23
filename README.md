@@ -1,5 +1,5 @@
-# La Misión del Locker
+# A misión do Locker
 
-Gymkana a pie por Montpellier: seis pruebas que desbloquean el código de un Amazon Locker.
+Xincana a pé por Montpellier: seis probas que desbloquean o código dun Amazon Locker.
 
-Juego: https://jrposada.github.io/mision-del-locker/
+Xogo: https://jrposada.github.io/mision-del-locker/

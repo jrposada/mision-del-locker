@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es">
+<html lang="gl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0e1729">
-<title>La Misión del Locker</title>
+<title>A misión do Locker</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +52,7 @@ a{color:var(--teal-text)}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 :focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
-/* ---------- cabecera ---------- */
+/* ---------- cabeceira ---------- */
 header.top{position:sticky;top:0;z-index:900;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px 10px;padding-top:max(10px,env(safe-area-inset-top))}
 header.top .in{max-width:720px;margin:0 auto}
 .brand{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -88,7 +88,7 @@ header.top .in{max-width:720px;margin:0 auto}
 @keyframes pulse{0%{box-shadow:0 0 0 0 #f5a300aa}70%{box-shadow:0 0 0 14px #f5a30000}100%{box-shadow:0 0 0 0 #f5a30000}}
 .me{width:18px;height:18px;border-radius:50%;background:#2d8cff;border:3px solid #fff;box-shadow:0 0 0 6px #2d8cff40}
 
-/* ---------- tarjetas ---------- */
+/* ---------- tarxetas ---------- */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:16px 0;box-shadow:var(--shadow)}
 .card h2{font:700 1.5rem/1.2 var(--head);margin:2px 0 8px}
 .card h2:focus{outline:none}
@@ -107,7 +107,7 @@ p{margin:.55em 0}
 .stat3 span{font-size:.82rem;color:var(--muted)}
 ol.steps{padding-left:1.2em;margin:.4em 0} ol.steps li{margin:.25em 0}
 
-/* ---------- botones y formularios ---------- */
+/* ---------- botóns e formularios ---------- */
 .btn{appearance:none;border:0;cursor:pointer;font:700 1rem/1.2 system-ui,sans-serif;min-height:48px;padding:12px 20px;border-radius:14px;background:var(--gold);color:var(--gold-ink);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .08s,filter .15s}
 .btn:hover{filter:brightness(1.06)} .btn:active{transform:translateY(1px)}
 .btn.alt{background:transparent;color:var(--text);border:1px solid var(--line)}
@@ -142,7 +142,7 @@ input[type=file]::file-selector-button{font:600 .92rem/1.2 system-ui;color:var(-
 .legs b{color:var(--gold-text)}
 .zone{background:var(--bg2);background:color-mix(in srgb,var(--teal) 20%,var(--card));border:1px solid var(--teal);border-radius:14px;padding:10px 14px;margin-top:12px;font-weight:700}
 
-/* ---------- pruebas ---------- */
+/* ---------- probas ---------- */
 .cipher{font:700 1.5rem/1.5 ui-monospace,Consolas,monospace;letter-spacing:.22em;text-align:center;padding:14px;background:var(--bg2);border-radius:14px;margin:12px 0;word-break:break-word}
 .tblwrap{overflow-x:auto;margin-top:6px}
 table.caesar{border-collapse:collapse;font:700 .85rem/1 ui-monospace,Consolas,monospace}
@@ -205,7 +205,7 @@ summary{cursor:pointer;font-weight:700}
 .qrbox.bar{max-width:460px;padding:18px 12px}
 .digits{font:700 1.7rem/1.2 ui-monospace,Consolas,monospace;letter-spacing:.35em;padding-left:.35em;color:#111;margin-top:10px}
 
-/* ---------- modal, toast, pie ---------- */
+/* ---------- modal, toast, pé ---------- */
 .modal{position:fixed;inset:0;background:#0009;z-index:1500;display:flex;align-items:flex-end;justify-content:center;padding:16px}
 .modal-in{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:20px;max-width:560px;width:100%;max-height:85vh;overflow:auto;padding:20px;box-shadow:var(--shadow)}
 .modal-in h2{font:700 1.3rem/1.2 var(--head);margin:0 0 8px}
@@ -220,16 +220,16 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:3000}
 </style>
 </head>
 <body>
-<noscript><p style="padding:16px">Este juego necesita JavaScript activado.</p></noscript>
+<noscript><p style="padding:16px">Este xogo precisa ter JavaScript activado.</p></noscript>
 
 <header class="top">
   <div class="in">
     <div class="brand">
-      <h1>La Misión del Locker</h1>
+      <h1>A misión do Locker</h1>
       <div class="tools">
-        <button class="ib" id="bHelp" type="button" aria-label="Cómo se juega" title="Ayuda">?</button>
-        <button class="ib" id="bSound" type="button" aria-label="Sonido" title="Sonido">🔊</button>
-        <button class="ib" id="bTheme" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Tema claro / oscuro">🌓</button>
+        <button class="ib" id="bHelp" type="button" aria-label="Como se xoga" title="Axuda">?</button>
+        <button class="ib" id="bSound" type="button" aria-label="Son" title="Son">🔊</button>
+        <button class="ib" id="bTheme" type="button" aria-label="Cambiar entre o tema claro e o escuro" title="Tema claro / escuro">🌓</button>
       </div>
     </div>
     <div class="sub"><span id="km"></span><span id="timer"></span></div>
@@ -238,38 +238,38 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:3000}
 </header>
 
 <main class="wrap">
-  <section class="mapcard" id="mapcard" aria-label="Mapa de la ruta">
+  <section class="mapcard" id="mapcard" aria-label="Mapa da ruta">
     <div id="map"></div>
     <div class="maptools">
-      <button type="button" id="mMe" title="Mostrar dónde estoy">📍 Yo</button>
-      <button type="button" id="mStop" title="Centrar en la parada actual">🎯 Parada</button>
-      <button type="button" id="mRoute" title="Ver toda la ruta">🗺️ Ruta</button>
+      <button type="button" id="mMe" title="Amosar onde estou">📍 Eu</button>
+      <button type="button" id="mStop" title="Centrar na parada actual">🎯 Parada</button>
+      <button type="button" id="mRoute" title="Ver toda a ruta">🗺️ Ruta</button>
       <span class="sp"></span>
-      <button type="button" id="mTiles" title="Si el mapa no se ve bien, prueba otro servidor">🔁 Mapa</button>
-      <button type="button" id="mBig" aria-label="Ampliar o reducir el mapa">⤢</button>
+      <button type="button" id="mTiles" title="Se o mapa non se ve ben, proba outro servidor">🔁 Mapa</button>
+      <button type="button" id="mBig" aria-label="Ampliar ou reducir o mapa">⤢</button>
     </div>
     <p class="mapnote" id="mapnote" hidden></p>
   </section>
   <div id="view"></div>
   <footer>
-    <button type="button" id="fHelp">Ayuda / me he perdido</button>
-    <button type="button" id="fReset">Reiniciar la aventura</button>
+    <button type="button" id="fHelp">Axuda / perdinme</button>
+    <button type="button" id="fReset">Reiniciar a aventura</button>
   </footer>
 </main>
 
 <div id="modal" class="modal" hidden></div>
-<div id="qrfull" role="dialog" aria-label="Código a pantalla completa"><div id="qrfullbox"></div><p id="qrfullcode"></p><p>Si el lector no lo lee, aleja o acerca un poco el móvil, o gíralo en horizontal.<br>Toca la pantalla para cerrar.</p></div>
+<div id="qrfull" role="dialog" aria-label="Código a pantalla completa"><div id="qrfullbox"></div><p id="qrfullcode"></p><p>Se o lector non o le, afasta ou achega un pouco o móbil, ou xírao en horizontal.<br>Toca a pantalla para pechar.</p></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
-<!-- Ajustes del regalo. Lo más cómodo es editarlos desde el modo creador: abre este archivo añadiendo #crear al final de la dirección. -->
-<script type="application/json" id="gift-config">{"v":2,"recipient":"","from":"","message":"","lockerCode":"","deadline":"","phrase":["ABRE","EL","REGALO","QUE","TE","ESPERA"],"qr":"","codeX":"UVNHUlde"}</script>
+<!-- Axustes do agasallo. O máis cómodo é editalos desde o modo creador: abre este ficheiro engadindo #crear ao final do enderezo. -->
+<script type="application/json" id="gift-config">{"v":2,"recipient":"","from":"","message":"","lockerCode":"","deadline":"","phrase":["ABRE","O","AGASALLO","QUE","TE","AGARDA"],"qr":"","codeX":"UVNHUl1T"}</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 (function(){
 "use strict";
-// Copia exacta de la página tal y como se cargó: el modo creador la usa para exportar el juego personalizado.
+// Copia exacta da páxina tal e como se cargou: o modo creador úsaa para exportar o xogo personalizado.
 const PRISTINE = "<!doctype html>\n" + document.documentElement.outerHTML;
 
 /* ================= utilidades ================= */
@@ -284,8 +284,8 @@ const lsSet = (k,v) => { try { localStorage.setItem(k,v); return true; } catch(e
 const lsDel = k => { try { localStorage.removeItem(k); } catch(e){} };
 const K = { state:"lq2-state", cfg:"lq2-cfg", theme:"lq2-theme", sound:"lq2-sound", tiles:"lq2-tiles", qr:"lq2-qr", photo:i=>"lq2-photo-"+i };
 const DEV = location.hash === "#dev";
-const WALK = 75;          // metros por minuto a pie
-const RADIUS = 120;       // metros para considerar que has llegado
+const WALK = 75;          // metros por minuto a pé
+const RADIUS = 120;       // metros para considerar que chegaches
 
 function hav(a,b){
   const R=6371000, r=Math.PI/180, dLat=(b[0]-a[0])*r, dLng=(b[1]-a[1])*r;
@@ -297,11 +297,11 @@ function bearing(a,b){
   const y=Math.sin(dL)*Math.cos(b[0]*r), x=Math.cos(a[0]*r)*Math.sin(b[0]*r)-Math.sin(a[0]*r)*Math.cos(b[0]*r)*Math.cos(dL);
   return (Math.atan2(y,x)/r+360)%360;
 }
-const CARD = ["norte","noreste","este","sureste","sur","suroeste","oeste","noroeste"];
+const CARD = ["norte","nordés","leste","sueste","sur","suroeste","oeste","noroeste"];
 const fmtDist = m => m>=1000 ? (m/1000).toFixed(1).replace(".",",")+" km" : Math.max(10,Math.round(m/10)*10)+" m";
 const fmtMin = m => { m=Math.max(1,Math.round(m)); return m<60 ? m+" min" : Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min"; };
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-// Amanecer y anochecer en Montpellier (ecuación del amanecer; error de unos pocos minutos).
+// Amencer e anoitecer en Montpellier (ecuación do amencer; erro duns poucos minutos).
 function sunTimes(day){
   const r=Math.PI/180, lat=43.625, lng=3.845, J=day.getTime()/86400000+2440587.5;
   const Js=Math.round(J-2451545+0.0008)-lng/360;
@@ -312,11 +312,11 @@ function sunTimes(day){
   const at=j=>new Date((j-2440587.5)*86400000);
   return {rise:at(Jt-w/360), set:at(Jt+w/360)};
 }
-const hhmm = d => d.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
-const fmtDate = iso => { const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||""); return m ? new Date(+m[1],+m[2]-1,+m[3]).toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"}) : ""; };
+const hhmm = d => d.toLocaleTimeString("gl-ES",{hour:"2-digit",minute:"2-digit"});
+const fmtDate = iso => { const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||""); return m ? new Date(+m[1],+m[2]-1,+m[3]).toLocaleDateString("gl-ES",{weekday:"long",day:"numeric",month:"long"}) : ""; };
 
-/* ================= ajustes del regalo ================= */
-const DEFAULTS = {v:2, recipient:"", from:"", message:"", lockerCode:"", codeX:"", deadline:"", phrase:["ABRE","EL","REGALO","QUE","TE","ESPERA"], qr:""};
+/* ================= axustes do agasallo ================= */
+const DEFAULTS = {v:2, recipient:"", from:"", message:"", lockerCode:"", codeX:"", deadline:"", phrase:["ABRE","O","AGASALLO","QUE","TE","AGARDA"], qr:""};
 const embeddedCfg = readJSON($("#gift-config").textContent) || {};
 let CFG;
 function loadCfg(){
@@ -327,7 +327,7 @@ function loadCfg(){
 loadCfg();
 const phraseText = () => { const s=CFG.phrase.join(" ").toLowerCase(); return s.charAt(0).toUpperCase()+s.slice(1); };
 
-// El QR y el código de recogida se guardan ofuscados con la frase secreta: no se ven a simple vista en el código de la página.
+// O QR e o código de recollida gárdanse ofuscados coa frase secreta: non se ven a simple vista no código da páxina.
 const qrKey = phrase => norm(phrase.join("")) || "locker";
 function xorStr(s,key){ const out=new Array(s.length); for(let i=0;i<s.length;i++) out[i]=String.fromCharCode(s.charCodeAt(i)^key.charCodeAt(i%key.length)); return out.join(""); }
 const obfuscate = (text, phrase) => btoa(xorStr(text, qrKey(phrase)));
@@ -342,14 +342,14 @@ function revealCode(){
 }
 
 /* ================= código de barras Code 128 ================= */
-// 106 patrones de 11 módulos (valores 0-105; 1 = barra, 0 = espacio) y el patrón de parada.
+// 106 patróns de 11 módulos (valores 0-105; 1 = barra, 0 = espazo) e o patrón de parada.
 const C128 = "11011001100110011011001100110011010010011000100100011001000100110010011001000100110001001000110010011001001000110010001001100010010010110011100100110111001001100111010111001100100111011001001110011011001110010110010111001100100111011011100100110011101001110110111011101001100111001011001110010011011101100100111001101001110011001011011011000110110001101100011011010100011000100010110001000100011010110001000100011010001000110001011010001000110001010001100010001010110111000101100011101000110111010111011000101110001101000111011011101110110110100011101100010111011011101000110111000101101110111011101011000111010001101110001011011101101000111011000101110001101011101111010110010000101111000101010100110000101000011001001011000010010000110100001011001000010011010110010000101100001001001101000010011000010100001101001000011001011000010010110010100001111011101011000010100100011110101010011110010010111100100100111101011110010010011110100100111100101111010010011110010100111100100101101101111011011110110111101101101010111100010100011110100010111101011110100010111100010111101010001111010001010111011110101111011101110101111011110101110110100001001101001000011010011100";
 const C128_STOP = "1100011101011";
 function code128Bits(text){
   let codes;
-  if(/^\d+$/.test(text) && text.length%2===0){        // juego C: dos dígitos por símbolo
+  if(/^\d+$/.test(text) && text.length%2===0){        // xogo C: dous díxitos por símbolo
     codes=[105]; for(let i=0;i<text.length;i+=2) codes.push(+text.slice(i,i+2));
-  } else {                                              // juego B: ASCII imprimible
+  } else {                                              // xogo B: ASCII imprimíbel
     codes=[104];
     for(const ch of text){ const c=ch.charCodeAt(0); if(c<32 || c>127) return null; codes.push(c-32); }
   }
@@ -359,14 +359,14 @@ function code128Bits(text){
 }
 function barcodeSvg(text){
   const bits=code128Bits(text); if(!bits) return "";
-  const q=10, h=34, W=bits.length+2*q;                   // 10 módulos de margen blanco a cada lado
+  const q=10, h=34, W=bits.length+2*q;                   // 10 módulos de marxe branca a cada lado
   let rects="";
   for(let i=0;i<bits.length;){
     if(bits[i]==="1"){ let j=i; while(bits[j]==="1") j++; rects+=`<rect x="${i+q}" width="${j-i}" height="${h}"/>`; i=j; } else i++;
   }
   return `<svg data-modules="${W}" viewBox="0 0 ${W} ${h}" shape-rendering="crispEdges" role="img" aria-label="Código de barras ${esc(text)}"><rect width="${W}" height="${h}" fill="#fff"/><g fill="#000">${rects}</g></svg>`;
 }
-// Cada módulo ocupa un número entero de píxeles: las barras salen nítidas y el lector las mide bien.
+// Cada módulo ocupa un número enteiro de píxeles: as barras saen nítidas e o lector mídeas ben.
 function fitBarcodes(root, maxW){
   $$("svg[data-modules]",root).forEach(svg=>{
     const box=svg.parentElement, cs=getComputedStyle(box), m=+svg.dataset.modules;
@@ -375,8 +375,8 @@ function fitBarcodes(root, maxW){
   });
 }
 
-/* ================= ruta y paradas ================= */
-// Ruta a pie calculada sobre OpenStreetMap (enrutador peatonal): 4,7 km.
+/* ================= ruta e paradas ================= */
+// Ruta a pé calculada sobre OpenStreetMap (encamiñador peonil): 4,7 km.
 const ROUTE = [[43.63179,3.85862],[43.63183,3.85785],[43.63211,3.85663],[43.63222,3.85457],[43.63208,3.85394],[43.6318,3.85371],[43.63181,3.85359],[43.63229,3.85285],[43.63298,3.85149],[43.63341,3.8508],[43.63436,3.84979],[43.63398,3.8488],[43.63576,3.84731],[43.63575,3.84689],[43.63489,3.84413],[43.63468,3.84389],[43.63387,3.84355],[43.63391,3.84313],[43.63463,3.84213],[43.63486,3.84143],[43.63344,3.8396],[43.63378,3.83909],[43.63344,3.8396],[43.6332,3.83931],[43.63279,3.83992],[43.63265,3.83996],[43.63164,3.84152],[43.63143,3.8415],[43.63128,3.84134],[43.63111,3.84139],[43.63076,3.84108],[43.63043,3.84167],[43.62965,3.84152],[43.62896,3.84116],[43.6283,3.84057],[43.62768,3.83988],[43.62708,3.83898],[43.62666,3.83794],[43.62581,3.83682],[43.62577,3.83611],[43.62545,3.83619],[43.62526,3.83604],[43.62512,3.83603],[43.62499,3.83613],[43.62484,3.83645],[43.62422,3.83669],[43.62412,3.83656],[43.62374,3.83671],[43.62376,3.83682],[43.62352,3.83699],[43.62344,3.83719],[43.62347,3.83736],[43.62324,3.83744],[43.62302,3.83798],[43.62308,3.83802],[43.6232,3.83867],[43.6237,3.8385],[43.6232,3.83867],[43.62322,3.83875],[43.62283,3.83974],[43.6227,3.83979],[43.6228,3.84027],[43.6219,3.84063],[43.62112,3.8408],[43.6194,3.84283],[43.61937,3.8428],[43.619,3.84349],[43.61828,3.84406],[43.61823,3.84383]];
 
 function caesarTable(shift){
@@ -389,84 +389,84 @@ const STOPS = [
   {
     icon:"🏥", name:"Punto de partida", sub:"Hôpitaux-Facultés · Rue du Professeur Joseph Anglada",
     lat:43.63179, lng:3.85862, leg:0,
-    title:"La primera pista está en la pared",
-    story:"Estás en Hôpitaux-Facultés, el barrio de los hospitales y las universidades de Montpellier. Toda expedición empieza sabiendo dónde pisa, así que busca la placa con el nombre de esta calle.",
-    challenge:{ type:"text", prompt:"¿Qué apellido lleva el profesor que da nombre a la calle?", placeholder:"Apellido…", contains:true, answers:["anglada"],
-      hints:["Las placas suelen estar en las esquinas, a la altura del primer piso.","Rue du Professeur Joseph A _ _ _ _ _ A (7 letras)."] },
-    fact:"La Facultad de Medicina de Montpellier recibió sus primeros estatutos en 1220: es la escuela de medicina más antigua del mundo occidental que sigue en activo.",
-    photo:"Un selfie de salida con tu mejor cara de aventura."
+    title:"A primeira pista está na parede",
+    story:"Estás en Hôpitaux-Facultés, o barrio dos hospitais e das universidades de Montpellier. Toda expedición comeza sabendo onde pisa, así que busca a placa co nome desta rúa.",
+    challenge:{ type:"text", prompt:"Que apelido ten o profesor que lle dá nome á rúa?", placeholder:"Apelido…", contains:true, answers:["anglada"],
+      hints:["As placas adoitan estar nas esquinas, á altura do primeiro andar.","Rue du Professeur Joseph A _ _ _ _ _ A (7 letras)."] },
+    fact:"A Facultade de Medicina de Montpellier recibiu os seus primeiros estatutos en 1220: é a escola de medicina máis antiga do mundo occidental que segue en activo.",
+    photo:"Unha autofoto de saída coa túa mellor cara de aventura."
   },
   {
-    icon:"🗣️", name:"Avenue d'Occitanie", sub:"Junto a la estación de tranvía Occitanie",
+    icon:"🗣️", name:"Avenue d'Occitanie", sub:"Xunto á estación de tranvía Occitanie",
     lat:43.63449, lng:3.84839, leg:1014,
-    arrive:"Sigue la Rue du Professeur Joseph Anglada hacia el oeste hasta la Avenue d'Occitanie, junto a la estación de tranvía Occitanie.",
-    caution:"Cruza la Route de Ganges y la Avenue du Doyen Gaston Giraud solo por los pasos con semáforo que hay junto a la estación de tranvía.",
-    title:"Hablemos occitano",
-    story:"Languedoc significa «lengua del òc»: en el Sur se decía «òc» para decir «sí», mientras que en el Norte se decía «oïl», de donde viene el «oui» francés. Esa lengua del Sur es el occitano, y la avenida en la que estás lleva su nombre.",
-    challenge:{ type:"match", prompt:"Empareja cada palabra occitana con su significado:",
-      pairs:[["Òc","Sí"],["Bonjorn","Buenos días"],["Mercés","Gracias"],["Aiga","Agua"],["Carrièra","Calle"]],
-      hints:["La clave de «Òc» está en el texto de arriba. «Bonjorn» y «Mercés» se parecen mucho a sus primos franceses.","«Aiga» suena a «agua» en catalán (aigua). Lo que queda, «Carrièra», es lo que pisas ahora mismo."] },
-    fact:"Montpellier se dice «Montpelhièr» en occitano, y en el centro histórico muchas placas de calle son bilingües. Si pasa un tranvía azul de la línea 1, fíjate bien: va decorado con golondrinas blancas.",
-    photo:"Algo escrito en occitano… o un tranvía con golondrinas."
+    arrive:"Segue a Rue du Professeur Joseph Anglada cara ao oeste ata a Avenue d'Occitanie, xunto á estación de tranvía Occitanie.",
+    caution:"Cruza a Route de Ganges e a Avenue du Doyen Gaston Giraud só polos pasos con semáforo que hai xunto á estación de tranvía.",
+    title:"Falemos occitano",
+    story:"Languedoc significa «lingua do òc»: no sur dicíase «òc» para dicir «si», mentres que no norte se dicía «oïl», de onde vén o «oui» francés. Esa lingua do sur é o occitano, e a avenida na que estás leva o seu nome.",
+    challenge:{ type:"match", prompt:"Emparella cada palabra occitana co seu significado:",
+      pairs:[["Òc","Si"],["Bonjorn","Bos días"],["Mercés","Grazas"],["Aiga","Auga"],["Carrièra","Rúa"]],
+      hints:["A clave de «Òc» está no texto de arriba. «Bonjorn» e «Mercés» parécense moito aos seus curmáns franceses.","«Aiga» soa a «auga» en catalán (aigua). O que queda, «Carrièra», é o que pisas agora mesmo."] },
+    fact:"Montpellier dise «Montpelhièr» en occitano, e no centro histórico moitas placas de rúa son bilingües. Se pasa un tranvía azul da liña 1, fíxate ben: vai decorado con andoriñas brancas.",
+    photo:"Algo escrito en occitano… ou un tranvía con andoriñas."
   },
   {
-    icon:"🏰", name:"Domaine d'Ô", sub:"Château, parque de 23 hectáreas y festivales",
+    icon:"🏰", name:"Domaine d'Ô", sub:"Castelo, parque de 23 hectáreas e festivais",
     lat:43.6339, lng:3.8390, leg:1057,
-    arrive:"Sigue por la Avenue d'Occitanie y después por la Rue Saint-Priest hasta el Domaine d'Ô. Si el parque estuviera cerrado, haz la prueba en la entrada.",
-    caution:"La Avenue des Moulins tiene hasta 3 carriles a 50 km/h: crúzala por el paso con semáforo del cruce con la Rue Saint-Priest. Después, en la Rue Saint-Priest la acera solo va por un lado.",
-    title:"El mensaje cifrado del jardinero",
-    story:"Este parque de 23 hectáreas guarda una «folie» de mediados del siglo XVIII: el Château d'Ô, con estanques, fuentes, un pinar centenario y un olivar. La calle por la que has llegado, Rue Saint-Priest, lleva el mismo nombre que quien encargó el château: Monsieur de Saint-Priest, que llegaría a ser intendente del Languedoc.",
-    challenge:{ type:"text", cipher:"OD SDODEUD HV: MDUGLQ",
-      prompt:"El jardinero dejó este mensaje con el cifrado de César: cada letra se desplazó 3 posiciones hacia delante (A→D, B→E, C→F…). Descífralo y escribe la última palabra.",
-      placeholder:"Última palabra…", contains:true, answers:["jardin"],
-      hints:["Retrocede 3 letras en el alfabeto: O→L y D→A, así que la primera palabra es «LA».",{html:"Esta tabla te dice qué letra real hay debajo de cada letra cifrada:"+caesarTable(3)}] },
-    fact:"El jardín lo diseñó Jean-Antoine Giral, el mismo arquitecto del château d'eau de la Promenade du Peyrou, donde termina el acueducto que conocerás dentro de dos paradas. Hoy el Domaine d'Ô acoge festivales de teatro, circo, música y cine.",
-    photo:"El château, sus fuentes o el pinar."
+    arrive:"Segue pola Avenue d'Occitanie e despois pola Rue Saint-Priest ata o Domaine d'Ô. Se o parque estivese pechado, fai a proba na entrada.",
+    caution:"A Avenue des Moulins ten ata 3 carrís a 50 km/h: crúzaa polo paso con semáforo do cruzamento coa Rue Saint-Priest. Despois, na Rue Saint-Priest a beirarrúa só vai por un lado.",
+    title:"A mensaxe cifrada do xardineiro",
+    story:"Este parque de 23 hectáreas garda unha «folie» de mediados do século XVIII: o Château d'Ô, con estanques, fontes, un piñeiral centenario e un oliveiral. A rúa pola que chegaches, Rue Saint-Priest, leva o mesmo nome que quen encargou o castelo: Monsieur de Saint-Priest, que chegaría a ser intendente do Languedoc.",
+    challenge:{ type:"text", cipher:"D SDODEUD H: ADUGLQ",
+      prompt:"O xardineiro deixou esta mensaxe co cifrado de César: cada letra desprazouse 3 posicións cara adiante (A→D, B→E, C→F…). Descífraa e escribe a última palabra.",
+      placeholder:"Última palabra…", contains:true, answers:["xardin"],
+      hints:["Retrocede 3 letras no alfabeto: D→A e S→P, así que a primeira palabra é «A».",{html:"Esta táboa diche que letra real hai debaixo de cada letra cifrada:"+caesarTable(3)}] },
+    fact:"O xardín deseñouno Jean-Antoine Giral, o mesmo arquitecto do château d'eau da Promenade du Peyrou, onde remata o acueduto que coñecerás dentro de dúas paradas. Hoxe o Domaine d'Ô acolle festivais de teatro, circo, música e cinema.",
+    photo:"O castelo, as súas fontes ou o piñeiral."
   },
   {
-    icon:"🐚", name:"Parc d'Alco", sub:"Barrio de Alco · calles con nombre de peregrinos",
+    icon:"🐚", name:"Parc d'Alco", sub:"Barrio de Alco · rúas con nomes de peregrinos",
     lat:43.62369, lng:3.83881, leg:1780,
-    arrive:"Ve hacia el sur por la Rue Henri Lagatu y sigue los caminos peatonales hasta la Via Tolosana y el Parc d'Alco. Fíjate en los nombres de las calles: no son casualidad.",
-    caution:"La Avenue Ernest Hemingway se cruza por un paso de cebra sin semáforo: mira a ambos lados. La gran rotonda (Rond-Point de la Citoyenneté) no se cruza a pie: la ruta la pasa por pasarelas peatonales, con escaleras.",
-    title:"Los peregrinos de Santiago",
-    story:"Montpellier es ciudad-etapa de la Via Tolosana, el Camino de Arlés, que cruza el Languedoc rumbo a Santiago de Compostela. Por eso en este barrio hay calles con nombres de caminos jacobeos. ¿Cuánto sabes de ellos?",
+    arrive:"Vai cara ao sur pola Rue Henri Lagatu e segue os camiños peonís ata a Via Tolosana e o Parc d'Alco. Fíxate nos nomes das rúas: non son casualidade.",
+    caution:"A Avenue Ernest Hemingway crúzase por un paso de peóns sen semáforo: mira a ambos os lados. A gran rotonda (Rond-Point de la Citoyenneté) non se cruza a pé: a ruta pásaa por pasarelas peonís, con escaleiras.",
+    title:"Os peregrinos de Santiago",
+    story:"Montpellier é cidade-etapa da Via Tolosana, o Camiño de Arles, que cruza o Languedoc rumbo a Santiago de Compostela. Por iso neste barrio hai rúas con nomes de camiños xacobeos. Canto sabes deles?",
     challenge:{ type:"quiz", questions:[
-        {q:"¿Qué símbolo llevan los peregrinos del Camino de Santiago?", opts:["Una llave dorada","Una concha de vieira","Una campana de bronce"], a:1},
-        {q:"¿En qué ciudad termina el Camino de Santiago?", opts:["Santiago de Compostela","Roncesvalles","Burgos"], a:0},
-        {q:"La Via Tolosana, que pasa por Montpellier, es el Camino que sale de…", opts:["Lyon","Burdeos","Arlés"], a:2}
+        {q:"Que símbolo levan os peregrinos do Camiño de Santiago?", opts:["Unha chave dourada","Unha cuncha de vieira","Unha campá de bronce"], a:1},
+        {q:"En que cidade remata o Camiño de Santiago?", opts:["Santiago de Compostela","Roncesvalles","Burgos"], a:0},
+        {q:"A Via Tolosana, que pasa por Montpellier, é o Camiño que sae de…", opts:["Lyon","Bordeos","Arles"], a:2}
       ],
-      hints:["El símbolo del Camino también es un marisco que se come en Galicia.","La Via Tolosana también se llama «Camino de Arlés»."] },
-    fact:"Los grandes caminos franceses salen de Tours, Vézelay, Le Puy y Arlés. Tres se unen antes de cruzar los Pirineos por Roncesvalles; la Via Tolosana los cruza por el Somport y se junta con los demás en Puente la Reina, en Navarra.",
-    photo:"Una placa de calle con nombre de camino de peregrinos."
+      hints:["O símbolo do Camiño tamén é un marisco que se come en Galicia.","A Via Tolosana tamén se chama «Camiño de Arles»."] },
+    fact:"Os grandes camiños franceses saen de Tours, Vézelay, Le Puy e Arles. Tres únense antes de cruzar os Pireneos por Roncesvalles; a Via Tolosana crúzaos polo Somport e xúntase cos demais en Puente la Reina, en Navarra.",
+    photo:"Unha placa de rúa con nome de camiño de peregrinos."
   },
   {
-    icon:"💧", name:"Allée de l'Aqueduc", sub:"La ruta del agua",
+    icon:"💧", name:"Allée de l'Aqueduc", sub:"A ruta da auga",
     lat:43.62229, lng:3.84047, leg:269,
-    arrive:"Desde el parque, sigue el Chemin de la Via Podensis hasta la Allée de l'Aqueduc. Son solo 270 m.",
-    caution:"En este tramo del parque hay varias escaleras.",
-    title:"El reto del agua",
-    story:"El nombre de esta alameda recuerda al acueducto de Saint-Clément, que recorre unos 14 km para llevar el agua desde la fuente del Boulidou, en Saint-Clément-de-Rivière, hasta el centro de Montpellier. Para abrir la compuerta tienes que medir una cantidad exacta con dos cubos sin marcas.",
+    arrive:"Desde o parque, segue o Chemin de la Via Podensis ata a Allée de l'Aqueduc. Son só 270 m.",
+    caution:"Neste treito do parque hai varias escaleiras.",
+    title:"O reto da auga",
+    story:"O nome desta alameda lembra o acueduto de Saint-Clément, que percorre uns 14 km para levar a auga desde a fonte do Boulidou, en Saint-Clément-de-Rivière, ata o centro de Montpellier. Para abrir a comporta tes que medir unha cantidade exacta con dous caldeiros sen marcas.",
     challenge:{ type:"jugs", a:5, b:3, goal:4,
-      prompt:"Consigue exactamente 4 litros en el cubo grande (el de 5 L).",
-      hints:["Llena el de 5 L y vierte en el de 3 L. ¿Cuánto queda en el grande?","Vacía el de 3 L, pasa a él los 2 L del grande, vuelve a llenar el de 5 L y termina de llenar el pequeño con él."] },
-    fact:"Dirigió la obra Henri Pitot, el inventor del tubo de Pitot con el que los aviones miden su velocidad, y el agua llegó a la ciudad en 1765. El tramo más famoso, los Arceaux, son unos 880 m de arcos en dos pisos.",
-    photo:"Algo que tenga que ver con el agua."
+      prompt:"Consegue exactamente 4 litros no caldeiro grande (o de 5 L).",
+      hints:["Enche o de 5 L e verte no de 3 L. Canto queda no grande?","Baleira o de 3 L, pásalle os 2 L do grande, enche de novo o de 5 L e remata de encher o pequeno con el."] },
+    fact:"Dirixiu a obra Henri Pitot, o inventor do tubo de Pitot co que os avións miden a súa velocidade, e a auga chegou á cidade en 1765. O treito máis famoso, os Arceaux, son uns 880 m de arcos en dous andares.",
+    photo:"Algo que teña que ver coa auga."
   },
   {
-    icon:"📦", name:"Amazon Locker", sub:"Gasolinera Eni · 544 Rue Paul Rimbaud",
+    icon:"📦", name:"Amazon Locker", sub:"Gasolineira Eni · 544 Rue Paul Rimbaud",
     lat:43.61822, lng:3.84376, leg:580,
-    arrive:"Baja por la Allée de l'Aqueduc hasta el final. El Amazon Locker «Curium ENI Montpellier Rimbaud» está en la gasolinera Eni del nº 544 (abierta 24 h), a tu derecha.",
-    caution:"No cruces la Rue Paul Rimbaud (hasta 4 carriles): la gasolinera está en tu misma acera. Atención a los coches que entran y salen de ella.",
-    title:"La frase secreta",
-    story:"¡Has llegado al final de la ruta! Última prueba: ordena las seis palabras que has reunido para formar la frase secreta. Al hacerlo, el QR se desbloqueará.",
-    challenge:{ type:"order", hints:["Es una frase dirigida a ti y empieza por un verbo.","Las palabras van en el mismo orden en que las ganaste."] },
+    arrive:"Baixa pola Allée de l'Aqueduc ata o final. O Amazon Locker «Curium ENI Montpellier Rimbaud» está na gasolineira Eni do nº 544 (aberta 24 h), á túa dereita.",
+    caution:"Non cruces a Rue Paul Rimbaud (ata 4 carrís): a gasolineira está na túa mesma beirarrúa. Atención aos coches que entran e saen dela.",
+    title:"A frase secreta",
+    story:"Chegaches ao final da ruta! Última proba: ordena as seis palabras que reuniches para formar a frase secreta. Ao facelo, o QR desbloquearase.",
+    challenge:{ type:"order", hints:["É unha frase dirixida a ti e comeza por un verbo.","As palabras van na mesma orde na que as gañaches."] },
     fact:"",
-    photo:"Tú con tu regalo recién salido del locker."
+    photo:"Ti co teu agasallo acabado de sacar do Locker."
   }
 ];
 const LAST = STOPS.length-1;
 const TOTAL = STOPS.reduce((s,x)=>s+x.leg,0);
-// índice de cada parada dentro de la polilínea, de forma ordenada
+// índice de cada parada dentro da poliliña, de forma ordenada
 (function(){
   let from=0;
   STOPS.forEach((s,i)=>{
@@ -485,7 +485,7 @@ const solvedUpTo = () => S.screen==="intro" ? -1 : (S.screen==="reward"||S.scree
 const starsTotal = () => Object.values(S.stars).reduce((a,b)=>a+b,0);
 const elapsedMin = () => S.t0 ? ((S.t1||Date.now())-S.t0)/60000 : 0;
 
-/* ================= sonido, vibración, avisos ================= */
+/* ================= son, vibración, avisos ================= */
 let actx=null, soundOn = lsGet(K.sound)!=="0";
 const SND = { win:[[523,.12],[659,.12],[784,.24]], fail:[[196,.16,"square"],[165,.2,"square"]], arrive:[[880,.1],[1047,.1],[1319,.22]], final:[[523,.12],[659,.12],[784,.12],[1047,.5]] };
 function play(name){
@@ -520,10 +520,10 @@ function modal(title, bodyHtml, actions){
   });
 }
 
-/* ================= GPS y brújula ================= */
+/* ================= GPS e compás ================= */
 let gps=null, acc=null, watchId=null, gpsErr="", heading=null, compassOn=false;
 function startGps(manual){
-  if(!("geolocation" in navigator)){ gpsErr="Este navegador no permite usar la ubicación"; updateNav(); if(manual) toast(gpsErr); return; }
+  if(!("geolocation" in navigator)){ gpsErr="Este navegador non permite usar a localización"; updateNav(); if(manual) toast(gpsErr); return; }
   if(watchId!==null){ if(manual) focusMe(); return; }
   S.gps=true; save();
   watchId = navigator.geolocation.watchPosition(p=>{
@@ -531,9 +531,9 @@ function startGps(manual){
     gps=[p.coords.latitude,p.coords.longitude]; acc=p.coords.accuracy; gpsErr="";
     onGps(); if(first && manual) focusMe();
   }, e=>{
-    if(e.code===1){ gpsErr="Has denegado el permiso de ubicación. Puedes activarlo en los ajustes del navegador."; navigator.geolocation.clearWatch(watchId); watchId=null; S.gps=false; save(); }
-    else if(!gps) gpsErr="Buscando señal GPS…";
-    updateNav(); if(manual && e.code===1) toast("Permiso de ubicación denegado");
+    if(e.code===1){ gpsErr="Denegaches o permiso de localización. Podes activalo nos axustes do navegador."; navigator.geolocation.clearWatch(watchId); watchId=null; S.gps=false; save(); }
+    else if(!gps) gpsErr="Buscando sinal GPS…";
+    updateNav(); if(manual && e.code===1) toast("Permiso de localización denegado");
   }, {enableHighAccuracy:true, maximumAge:5000, timeout:30000});
   updateNav();
 }
@@ -543,7 +543,7 @@ function onGps(){
   if(S.screen==="travel"){
     const d=distTo(S.i);
     if(d!==null && d<=RADIUS && !S.arrived[S.i]){
-      S.arrived[S.i]=true; save(); play("arrive"); buzz([120,60,120]); toast("¡Estás en la zona de la parada!");
+      S.arrived[S.i]=true; save(); play("arrive"); buzz([120,60,120]); toast("Estás na zona da parada!");
       const h=$("#here"); if(h) h.classList.add("pulse");
       const z=$("#zone"); if(z) z.hidden=false;
     }
@@ -558,18 +558,18 @@ function onOrient(e){
   heading=(h+so+360)%360; updateNav();
 }
 function startCompass(){
-  const add=()=>{ compassOn=true; window.addEventListener("deviceorientationabsolute",onOrient,true); window.addEventListener("deviceorientation",onOrient,true); toast("Brújula activada: sujeta el móvil en horizontal"); updateNav(); };
+  const add=()=>{ compassOn=true; window.addEventListener("deviceorientationabsolute",onOrient,true); window.addEventListener("deviceorientation",onOrient,true); toast("Compás activado: suxeita o móbil en horizontal"); updateNav(); };
   if(typeof DeviceOrientationEvent!=="undefined" && typeof DeviceOrientationEvent.requestPermission==="function"){
-    DeviceOrientationEvent.requestPermission().then(r=> r==="granted" ? add() : toast("Brújula no permitida")).catch(()=>toast("No se pudo activar la brújula"));
+    DeviceOrientationEvent.requestPermission().then(r=> r==="granted" ? add() : toast("Compás non permitido")).catch(()=>toast("Non se puido activar o compás"));
   } else if("ondeviceorientationabsolute" in window || "ondeviceorientation" in window) add();
-  else toast("Este dispositivo no tiene brújula");
+  else toast("Este dispositivo non ten compás");
 }
 function updateNav(){
   const box=$("#nav"); if(!box) return;
   const d=distTo(S.i), comp=$(".compass",box), arrow=$("#arrow"), dist=$("#navDist"), dir=$("#navDir");
   if(d===null){
     comp.classList.add("off"); dist.textContent="—";
-    dir.textContent = gpsErr || (watchId!==null ? "Buscando señal GPS…" : "Activa el GPS para ver la distancia y la dirección.");
+    dir.textContent = gpsErr || (watchId!==null ? "Buscando sinal GPS…" : "Activa o GPS para ver a distancia e a dirección.");
     return;
   }
   const b=bearing(gps,[STOPS[S.i].lat,STOPS[S.i].lng]), live=compassOn && heading!==null;
@@ -577,16 +577,16 @@ function updateNav(){
   $(".n",box).style.visibility = live ? "hidden" : "visible";
   const rot = live ? b-heading : b;
   arrow.style.transform=`rotate(${rot}deg)`;
-  dist.textContent = d<=RADIUS ? "¡Has llegado!" : fmtDist(d);
-  let txt = d<=RADIUS ? "Estás en la zona de la parada." : `En línea recta, hacia el ${CARD[Math.round(b/45)%8]}.`;
-  txt += live ? " La flecha apunta a la parada." : " La flecha va respecto al norte (arriba).";
-  if(acc>60) txt+=` Precisión baja (±${Math.round(acc)} m).`;
+  dist.textContent = d<=RADIUS ? "Chegaches!" : fmtDist(d);
+  let txt = d<=RADIUS ? "Estás na zona da parada." : `En liña recta, cara ao ${CARD[Math.round(b/45)%8]}.`;
+  txt += live ? " A frecha apunta á parada." : " A frecha oriéntase respecto ao norte (arriba).";
+  if(acc>60) txt+=` Precisión baixa (±${Math.round(acc)} m).`;
   dir.textContent=txt;
 }
 
 /* ================= mapa ================= */
-// Servidores que funcionan sin clave y sin cabecera Referer (es decir, también abriendo el archivo en local).
-// tile.openstreetmap.org bloquea esas peticiones y CARTO exige clave, por eso no están.
+// Servidores que funcionan sen clave e sen cabeceira Referer (é dicir, tamén abrindo o ficheiro en local).
+// tile.openstreetmap.org bloquea esas peticións e CARTO esixe clave, por iso non están.
 const OSM_ATTR = '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 const TILES = [
   {name:"Esri", url:"https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", opt:{maxZoom:19, attribution:"Tiles © Esri"}},
@@ -602,7 +602,7 @@ function initMap(){
   if(typeof L==="undefined"){
     svgMode=true; el.classList.add("svgmap");
     ["mStop","mRoute","mBig","mTiles"].forEach(id=>$("#"+id).hidden=true);
-    mapNote("No se pudo cargar el mapa interactivo (¿sin conexión?). Se muestra un esquema de la ruta.");
+    mapNote("Non se puido cargar o mapa interactivo (sen conexión?). Amósase un esquema da ruta.");
     return;
   }
   map=L.map(el,{scrollWheelZoom:false, zoomSnap:.5});
@@ -612,12 +612,12 @@ function initMap(){
   const saved=parseInt(lsGet(K.tiles),10);
   useTiles(saved>=0 && saved<TILES.length ? saved : 0, 0);
 }
-// Prueba un servidor de mapas; si sus teselas fallan (403/503…) o no responde, pasa al siguiente.
+// Proba un servidor de mapas; se as súas teselas fallan (403/503…) ou non responde, pasa ao seguinte.
 function useTiles(idx, tried){
   if(tiles){ map.removeLayer(tiles); tiles=null; }
   if(tried>=TILES.length){
     $("#map").classList.add("notiles");
-    mapNote('No responde ningún servidor de mapas; la ruta y las paradas siguen visibles. <button type="button" id="retryTiles">Reintentar</button>');
+    mapNote('Non responde ningún servidor de mapas; a ruta e as paradas seguen visíbeis. <button type="button" id="retryTiles">Tentar de novo</button>');
     $("#retryTiles").onclick=()=>{ mapNote(""); useTiles(0,0); };
     return;
   }
@@ -677,10 +677,10 @@ function drawMe(){
   } else { meDot.setLatLng(gps); meRing.setLatLng(gps).setRadius(acc||30); }
 }
 function focusMe(){
-  if(!gps){ toast("Esperando señal GPS…"); return; }
+  if(!gps){ toast("Agardando sinal GPS…"); return; }
   if(map) map.setView(gps,17);
 }
-// Esquema de la ruta para cuando no carga la librería del mapa.
+// Esquema da ruta para cando non carga a biblioteca do mapa.
 function drawSvg(){
   const W=600, H=330, pad=26, lat0=43.625*Math.PI/180;
   const lats=ROUTE.map(p=>p[0]), lngs=ROUTE.map(p=>p[1]);
@@ -690,7 +690,7 @@ function drawSvg(){
   const P=p=>[ox+(p[1]-minLo)*Math.cos(lat0)*s, H-oy-(p[0]-minLa)*s];
   const path=pts=>pts.map((p,k)=>(k?"L":"M")+P(p).map(v=>v.toFixed(1)).join(" ")).join("");
   const solved=solvedUpTo();
-  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Esquema de la ruta"><path d="${path(ROUTE)}" fill="none" stroke="#7d88a6" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"/>`;
+  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Esquema da ruta"><path d="${path(ROUTE)}" fill="none" stroke="#7d88a6" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"/>`;
   if(solved>0) svg+=`<path d="${path(ROUTE.slice(0,STOPS[solved].vi+1))}" fill="none" stroke="#14a693" stroke-width="5" stroke-linecap="round"/>`;
   STOPS.forEach((st,i)=>{
     const [x,y]=P([st.lat,st.lng]), state=pinState(i);
@@ -701,9 +701,9 @@ function drawSvg(){
   $("#map").innerHTML=svg+"</svg>";
 }
 
-/* ================= cabecera ================= */
+/* ================= cabeceira ================= */
 function renderHeader(){
-  $("#km").textContent = `${fmtDist(TOTAL)} a pie · ${STOPS.length} paradas`;
+  $("#km").textContent = `${fmtDist(TOTAL)} a pé · ${STOPS.length} paradas`;
   const solved=solvedUpTo();
   $("#dots").innerHTML = STOPS.map((s,i)=>`<div class="dot ${i<=solved?"done":(i===S.i && S.screen!=="intro")?"now":""}"></div>`).join("");
   $("#timer").textContent = S.t0 ? "⏱ "+fmtMin(elapsedMin()) : "";
@@ -713,17 +713,17 @@ function wordsStrip(){
   const got=solvedUpTo()+1;
   return `<div class="words" aria-label="Frase secreta: ${got} de 6 palabras">${CFG.phrase.map((w,i)=> i<got ? `<span class="w got">${esc(w)}</span>` : `<span class="w">· · ·</span>`).join("")}</div>`;
 }
-// Aviso de luz: la ruta solo se recomienda de día.
+// Aviso de luz: a ruta só se recomenda de día.
 function daylightHtml(fromStop){
   const left=STOPS.slice(fromStop).reduce((m,s)=>m+s.leg,0)/WALK + (STOPS.length-fromStop)*5;
   const now=new Date(), noon=new Date(now); noon.setHours(12,0,0,0);
   const t=sunTimes(noon);
-  if(now<t.rise) return `<div class="warn">🌙 Todavía es de noche. Por seguridad, espera a que amanezca (hoy a las <b>${hhmm(t.rise)}</b>) para hacer la ruta.</div>`;
-  if(now>t.set) return `<div class="warn">🌙 Ya es de noche. Por seguridad, sigue mañana con luz: amanece a las <b>${hhmm(sunTimes(new Date(noon.getTime()+86400000)).rise)}</b>. Tu progreso queda guardado.</div>`;
-  if((t.set-now)/60000 < left+20) return `<div class="warn">🌇 Anochece a las <b>${hhmm(t.set)}</b> y te quedan unos ${fmtMin(left)} de ruta. Date prisa o sigue mañana: tu progreso queda guardado.</div>`;
-  return `<p class="small muted">☀️ Hoy anochece a las ${hhmm(t.set)}: tienes luz de sobra para el resto de la ruta.</p>`;
+  if(now<t.rise) return `<div class="warn">🌙 Aínda é de noite. Por seguridade, agarda a que amañeza (hoxe ás <b>${hhmm(t.rise)}</b>) para facer a ruta.</div>`;
+  if(now>t.set) return `<div class="warn">🌙 Xa é de noite. Por seguridade, segue mañá con luz: amañece ás <b>${hhmm(sunTimes(new Date(noon.getTime()+86400000)).rise)}</b>. O teu progreso queda gardado.</div>`;
+  if((t.set-now)/60000 < left+20) return `<div class="warn">🌇 Anoitece ás <b>${hhmm(t.set)}</b> e quédanche uns ${fmtMin(left)} de ruta. Apura ou segue mañá: o teu progreso queda gardado.</div>`;
+  return `<p class="small muted">☀️ Hoxe anoitece ás ${hhmm(t.set)}: tes luz de abondo para o resto da ruta.</p>`;
 }
-const starsHtml = n => `<span class="stars" aria-label="${n} de 3 estrellas">${"★".repeat(n)}<i>${"★".repeat(3-n)}</i></span>`;
+const starsHtml = n => `<span class="stars" aria-label="${n} de 3 estrelas">${"★".repeat(n)}<i>${"★".repeat(3-n)}</i></span>`;
 
 /* ================= pantallas ================= */
 const view=$("#view");
@@ -742,29 +742,29 @@ function render(focus){
 }
 
 function vIntro(){
-  const hi = CFG.recipient ? `¡Hola, ${esc(CFG.recipient)}!` : "¡Hola!";
+  const hi = CFG.recipient ? `Ola, ${esc(CFG.recipient)}!` : "Ola!";
   view.innerHTML=`
   <section class="card">
     <div class="big">🎁</div>
     <span class="tag">Misión secreta</span>
-    <h2>${hi} Tienes un regalo esperándote</h2>
-    <p>Está guardado en una taquilla <b>Amazon Locker</b> de Montpellier, y solo se abre con un código QR… que también está bajo llave.</p>
-    <div class="stat3"><div><b>${fmtDist(TOTAL)}</b><span>a pie</span></div><div><b>≈ ${fmtMin(TOTAL/WALK)}</b><span>de paseo</span></div><div><b>${STOPS.length}</b><span>pruebas</span></div></div>
-    <h3>Cómo funciona</h3>
+    <h2>${hi} Tes un agasallo agardando por ti</h2>
+    <p>Está gardado nunha consigna <b>Amazon Locker</b> de Montpellier, e só se abre cun código QR… que tamén está baixo chave.</p>
+    <div class="stat3"><div><b>${fmtDist(TOTAL)}</b><span>a pé</span></div><div><b>≈ ${fmtMin(TOTAL/WALK)}</b><span>de paseo</span></div><div><b>${STOPS.length}</b><span>probas</span></div></div>
+    <h3>Como funciona</h3>
     <ol class="steps">
-      <li>Ve a cada parada con el mapa, la flecha o Google Maps. La siguiente se desvela al superar la anterior.</li>
-      <li>Supera la prueba de la parada. Si te atascas, pide pistas (cuestan estrellas).</li>
-      <li>Cada prueba te da una palabra de la <b>frase secreta</b>.</li>
-      <li>En el locker, ordena la frase y el QR aparecerá.</li>
+      <li>Vai a cada parada co mapa, a frecha ou Google Maps. A seguinte desvélase ao superar a anterior.</li>
+      <li>Supera a proba da parada. Se te atrancas, pide pistas (custan estrelas).</li>
+      <li>Cada proba dáche unha palabra da <b>frase secreta</b>.</li>
+      <li>No Locker, ordena a frase e aparecerá o QR.</li>
     </ol>
-    ${CFG.deadline ? `<div class="warn">⏳ El regalo hay que recogerlo antes del <b>${esc(fmtDate(CFG.deadline))}</b>.</div>` : ""}
-    <div class="fact"><b>Antes de salir:</b> haz la ruta de día (los parques cierran por la noche), cruza siempre por los pasos de peatones y lleva el móvil cargado y agua. Hay algunos tramos con escaleras. En cada parada verás los cruces a los que prestar atención. En caso de emergencia, llama al <a href="tel:112">112</a>.</div>
+    ${CFG.deadline ? `<div class="warn">⏳ O agasallo hai que recollelo antes do <b>${esc(fmtDate(CFG.deadline))}</b>.</div>` : ""}
+    <div class="fact"><b>Antes de saír:</b> fai a ruta de día (os parques pechan pola noite), cruza sempre polos pasos de peóns e leva o móbil cargado e auga. Hai algúns treitos con escaleiras. En cada parada verás os cruzamentos aos que prestar atención. En caso de emerxencia, chama ao <a href="tel:112">112</a>.</div>
     ${daylightHtml(0)}
     <div class="row">
-      <button class="btn" id="go" type="button">Aceptar la misión</button>
+      <button class="btn" id="go" type="button">Aceptar a misión</button>
       <button class="btn alt" id="gpsb" type="button">📍 Activar GPS</button>
     </div>
-    <p class="small muted">El GPS solo se usa en tu móvil para mostrar tu posición y la distancia a cada parada; no se envía a ningún sitio.</p>
+    <p class="small muted">O GPS só se usa no teu móbil para amosar a túa posición e a distancia a cada parada; non se envía a ningún sitio.</p>
   </section>`;
   $("#go").onclick=()=>{ play("win"); S.t0=S.t0||Date.now(); go("challenge",0); };
   $("#gpsb").onclick=()=>startGps(true);
@@ -775,28 +775,28 @@ function vTravel(){
   const canCompass = typeof DeviceOrientationEvent!=="undefined";
   view.innerHTML=`
   <section class="card">
-    <span class="tag">Parada ${S.i+1} de ${STOPS.length} · en camino</span>
+    <span class="tag">Parada ${S.i+1} de ${STOPS.length} · en camiño</span>
     <div class="big">${s.icon}</div>
     <h2>${esc(s.name)}</h2>
     <p class="muted">${esc(s.sub)}</p>
     <p>${esc(s.arrive)}</p>
     ${s.caution?`<div class="warn">⚠️ <b>Precaución:</b> ${esc(s.caution)}</div>`:""}
     ${daylightHtml(S.i)}
-    <div class="legs"><span>Tramo: <b>${fmtDist(s.leg)}</b></span><span>A pie: <b>≈ ${fmtMin(s.leg/WALK)}</b></span></div>
+    <div class="legs"><span>Treito: <b>${fmtDist(s.leg)}</b></span><span>A pé: <b>≈ ${fmtMin(s.leg/WALK)}</b></span></div>
     <div class="nav" id="nav">
       <div class="compass off"><span class="n">N</span>
         <svg id="arrow" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6 L78 86 L50 70 L22 86 Z" fill="currentColor" style="color:var(--gold)"/></svg>
       </div>
       <div><div class="navd" id="navDist">—</div><div class="small muted" id="navDir"></div></div>
     </div>
-    <div class="zone" id="zone" ${S.arrived[S.i]?"":"hidden"}>📍 ¡Estás en la zona! Busca el lugar y pulsa «Ya he llegado».</div>
+    <div class="zone" id="zone" ${S.arrived[S.i]?"":"hidden"}>📍 Estás na zona! Busca o lugar e preme «Xa cheguei».</div>
     <div class="row">
       <button class="btn alt sm" id="gpsb" type="button">📍 GPS</button>
-      ${canCompass?'<button class="btn alt sm" id="compb" type="button">🧭 Brújula</button>':""}
+      ${canCompass?'<button class="btn alt sm" id="compb" type="button">🧭 Compás</button>':""}
       <a class="btn alt sm" href="${maps}" target="_blank" rel="noopener">Abrir en Google Maps</a>
     </div>
     <div class="row">
-      <button class="btn wide ${S.arrived[S.i]?"pulse":""}" id="here" type="button">${S.i===LAST?"¡Estoy en el locker!":"Ya he llegado"}</button>
+      <button class="btn wide ${S.arrived[S.i]?"pulse":""}" id="here" type="button">${S.i===LAST?"Estou no Locker!":"Xa cheguei"}</button>
       ${DEV?'<button class="btn alt sm" id="skip" type="button">[dev] saltar</button>':""}
     </div>
   </section>
@@ -806,8 +806,8 @@ function vTravel(){
   $("#here").onclick=async()=>{
     const d=distTo(S.i);
     if(d!==null && d>RADIUS*2){
-      const r=await modal("¿Seguro que has llegado?",`<p>Según el GPS aún estás a <b>${fmtDist(d)}</b> de la parada${acc?` (precisión ±${Math.round(acc)} m)`:""}.</p><p class="muted small">Si el GPS falla, puedes continuar igualmente.</p>`,
-        [{id:"go",label:"Sí, estoy aquí"},{id:"no",label:"Seguir caminando",cls:"alt"}]);
+      const r=await modal("Seguro que chegaches?",`<p>Segundo o GPS aínda estás a <b>${fmtDist(d)}</b> da parada${acc?` (precisión ±${Math.round(acc)} m)`:""}.</p><p class="muted small">Se o GPS falla, podes continuar igualmente.</p>`,
+        [{id:"go",label:"Si, estou eiquí"},{id:"no",label:"Seguir camiñando",cls:"alt"}]);
       if(r!=="go") return;
     }
     go("challenge");
@@ -835,7 +835,7 @@ function vChallenge(){
     const n=S.hints[S.i]||0;
     $("#hints").innerHTML=c.hints.slice(0,n).map(h=>`<div class="hint">💡 ${typeof h==="string"?esc(h):h.html}</div>`).join("");
     const b=$("#hintb");
-    b.textContent = n>=c.hints.length ? "No hay más pistas" : `💡 Pedir pista (${n}/${c.hints.length}) · cuesta 1 ★`;
+    b.textContent = n>=c.hints.length ? "Non hai máis pistas" : `💡 Pedir pista (${n}/${c.hints.length}) · custa 1 ★`;
     b.disabled = n>=c.hints.length;
   };
   $("#hintb").onclick=()=>{ S.hints[S.i]=(S.hints[S.i]||0)+1; save(); showHints(); };
@@ -849,7 +849,7 @@ function say(text, ok){
 function fail(text){
   S.fails[S.i]=(S.fails[S.i]||0)+1; save();
   play("fail"); buzz(80);
-  const c=STOPS[S.i].challenge, tip = S.fails[S.i]>=3 && (S.hints[S.i]||0)<c.hints.length ? " ¿Y si pides una pista?" : "";
+  const c=STOPS[S.i].challenge, tip = S.fails[S.i]>=3 && (S.hints[S.i]||0)<c.hints.length ? " E se pides unha pista?" : "";
   say(text+tip,false);
   const card=$("#chcard"); card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake");
 }
@@ -857,7 +857,7 @@ let winning=false;
 function win(text){
   if(winning) return; winning=true;
   $$("#chbody button,#chbody input,#chbody select").forEach(x=>x.disabled=true);
-  say(text||"¡Correcto!",true); play(S.i===LAST?"final":"win"); buzz([60,40,60]);
+  say(text||"Correcto!",true); play(S.i===LAST?"final":"win"); buzz([60,40,60]);
   S.stars[S.i]=Math.max(1, 3-(S.hints[S.i]||0)-((S.fails[S.i]||0)>=3?1:0));
   setTimeout(()=>{
     winning=false;
@@ -866,17 +866,17 @@ function win(text){
   },700);
 }
 
-/* ---- tipos de prueba ---- */
+/* ---- tipos de proba ---- */
 const CH = {
   text(c, box){
-    box.innerHTML=`${c.cipher?`<div class="cipher" aria-label="Mensaje cifrado: ${esc(c.cipher.split("").join(" "))}">${esc(c.cipher)}</div>`:""}
+    box.innerHTML=`${c.cipher?`<div class="cipher" aria-label="Mensaxe cifrada: ${esc(c.cipher.split("").join(" "))}">${esc(c.cipher)}</div>`:""}
       <p class="prompt">${esc(c.prompt)}</p>
-      <label class="lbl" for="ans">Tu respuesta</label>
+      <label class="lbl" for="ans">A túa resposta</label>
       <div class="inrow"><input id="ans" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" placeholder="${esc(c.placeholder||"")}"><button class="btn" id="ok" type="button">Comprobar</button></div>`;
     const check=()=>{
       const v=norm($("#ans").value);
-      if(!v){ say("Escribe una respuesta.",false); return; }
-      c.answers.some(a=> c.contains ? v.includes(norm(a)) : v===norm(a)) ? win() : fail("Mmm, no es eso. Prueba otra vez.");
+      if(!v){ say("Escribe unha resposta.",false); return; }
+      c.answers.some(a=> c.contains ? v.includes(norm(a)) : v===norm(a)) ? win() : fail("Mmm, non é iso. Proba outra vez.");
     };
     $("#ok").onclick=check;
     $("#ans").addEventListener("keydown",e=>{ if(e.key==="Enter") check(); });
@@ -885,14 +885,14 @@ const CH = {
     const opts=shuffle(c.pairs.map(p=>p[1]));
     box.innerHTML=`<p class="prompt">${esc(c.prompt)}</p>`+c.pairs.map((p,i)=>`
       <div class="pair" data-i="${i}"><strong id="pw${i}">${esc(p[0])}</strong>
-        <select aria-labelledby="pw${i}"><option value="">Elige…</option>${opts.map(o=>`<option>${esc(o)}</option>`).join("")}</select>
+        <select aria-labelledby="pw${i}"><option value="">Escolle…</option>${opts.map(o=>`<option>${esc(o)}</option>`).join("")}</select>
       </div>`).join("")+`<div class="row"><button class="btn" id="ok" type="button">Comprobar</button></div>`;
     $("#ok").onclick=()=>{
       const rows=$$(".pair",box);
-      if(rows.some(r=>!$("select",r).value)){ say("Empareja todas las palabras.",false); return; }
+      if(rows.some(r=>!$("select",r).value)){ say("Emparella todas as palabras.",false); return; }
       let bad=0;
       rows.forEach(r=>{ const good=$("select",r).value===c.pairs[+r.dataset.i][1]; r.classList.toggle("right",good); r.classList.toggle("wrong",!good); if(!good) bad++; });
-      bad ? fail(bad===1?"Hay una pareja mal (marcada en rojo).":`Hay ${bad} parejas mal (marcadas en rojo).`) : win();
+      bad ? fail(bad===1?"Hai unha parella mal (marcada en vermello).":`Hai ${bad} parellas mal (marcadas en vermello).`) : win();
     };
   },
   quiz(c, box){
@@ -902,10 +902,10 @@ const CH = {
       </fieldset>`).join("")+`<div class="row"><button class="btn" id="ok" type="button">Comprobar</button></div>`;
     $("#ok").onclick=()=>{
       const sets=$$("fieldset",box);
-      if(sets.some(f=>!$("input:checked",f))){ say("Responde a todas las preguntas.",false); return; }
+      if(sets.some(f=>!$("input:checked",f))){ say("Responde a todas as preguntas.",false); return; }
       const bad=[];
       sets.forEach((f,qi)=>{ const good=+$("input:checked",f).value===c.questions[qi].a; f.classList.toggle("wrong",!good); if(!good) bad.push(qi+1); });
-      bad.length ? fail(`Revisa ${bad.length>1?"las preguntas":"la pregunta"} ${bad.join(" y ")}.`) : win();
+      bad.length ? fail(`Revisa ${bad.length>1?"as preguntas":"a pregunta"} ${bad.join(" e ")}.`) : win();
     };
   },
   jugs(c, box){
@@ -916,11 +916,11 @@ const CH = {
         <div class="jugwrap"><div class="jug" id="jb" style="height:${c.b*28}px"><div class="water"></div></div><b>${c.b} L · <span id="vb">0</span> L</b></div>
       </div>
       <div class="ctrls">
-        <button class="btn alt sm" type="button" data-m="fa">Llenar ${c.a} L</button><button class="btn alt sm" type="button" data-m="fb">Llenar ${c.b} L</button>
-        <button class="btn alt sm" type="button" data-m="ea">Vaciar ${c.a} L</button><button class="btn alt sm" type="button" data-m="eb">Vaciar ${c.b} L</button>
+        <button class="btn alt sm" type="button" data-m="fa">Encher ${c.a} L</button><button class="btn alt sm" type="button" data-m="fb">Encher ${c.b} L</button>
+        <button class="btn alt sm" type="button" data-m="ea">Baleirar ${c.a} L</button><button class="btn alt sm" type="button" data-m="eb">Baleirar ${c.b} L</button>
         <button class="btn alt sm" type="button" data-m="ab">${c.a} L → ${c.b} L</button><button class="btn alt sm" type="button" data-m="ba">${c.b} L → ${c.a} L</button>
       </div>
-      <p class="small muted">Movimientos: <span id="mv">0</span> · <button class="btn alt sm" id="rst" type="button">Empezar de nuevo</button></p>`;
+      <p class="small muted">Movementos: <span id="mv">0</span> · <button class="btn alt sm" id="rst" type="button">Comezar de novo</button></p>`;
     const draw=()=>{
       $("#ja .water").style.height=(a/c.a*100)+"%"; $("#jb .water").style.height=(b/c.b*100)+"%";
       $("#va").textContent=a; $("#vb").textContent=b; $("#mv").textContent=moves;
@@ -929,8 +929,8 @@ const CH = {
       ab:()=>{const t=Math.min(a,c.b-b); a-=t; b+=t;}, ba:()=>{const t=Math.min(b,c.a-a); b-=t; a+=t;} };
     $$("[data-m]",box).forEach(btn=>btn.onclick=()=>{
       ops[btn.dataset.m](); moves++; draw();
-      if(a===c.goal) win(`¡${c.goal} litros exactos en ${moves} movimientos!`);
-      else if(moves===12) say("Llevas muchos movimientos: prueba a empezar de nuevo o pide una pista.",false);
+      if(a===c.goal) win(`${c.goal} litros exactos en ${moves} movementos!`);
+      else if(moves===12) say("Levas moitos movementos: proba a comezar de novo ou pide unha pista.",false);
     });
     $("#rst").onclick=()=>{ a=b=moves=0; say("",true); draw(); };
     draw();
@@ -942,9 +942,9 @@ const CH = {
       save();
     }
     let pick=[];
-    box.innerHTML=`<p class="prompt">Toca las palabras en el orden correcto (toca una de arriba para quitarla):</p>
-      <div class="line chips" id="line" aria-label="Tu frase"></div>
-      <div class="chips" id="pool" aria-label="Palabras disponibles"></div>
+    box.innerHTML=`<p class="prompt">Toca as palabras na orde correcta (toca unha de arriba para quitala):</p>
+      <div class="line chips" id="line" aria-label="A túa frase"></div>
+      <div class="chips" id="pool" aria-label="Palabras dispoñíbeis"></div>
       <div class="row"><button class="btn" id="ok" type="button">Comprobar</button><button class="btn alt" id="clr" type="button">Borrar</button></div>`;
     const draw=()=>{
       $("#line").innerHTML=pick.map(i=>`<button class="chip" type="button" data-r="${i}">${esc(target[i])}</button>`).join("");
@@ -953,10 +953,10 @@ const CH = {
       $$("[data-r]",box).forEach(b=>b.onclick=()=>{ pick=pick.filter(x=>x!==+b.dataset.r); draw(); });
     };
     $("#clr").onclick=()=>{ pick=[]; draw(); };
-    // dos palabras iguales en la frase valen en cualquier orden: se compara el texto
+    // dúas palabras iguais na frase valen en calquera orde: compárase o texto
     $("#ok").onclick=()=>{
-      if(pick.length<target.length){ say(`Usa las ${target.length} palabras.`,false); return; }
-      pick.map(i=>target[i]).join(" ")===target.join(" ") ? win() : fail("Ese no es el orden. Recuerda cómo las fuiste ganando.");
+      if(pick.length<target.length){ say(`Usa as ${target.length} palabras.`,false); return; }
+      pick.map(i=>target[i]).join(" ")===target.join(" ") ? win() : fail("Esa non é a orde. Lembra como as fuches gañando.");
     };
     draw();
   }
@@ -975,16 +975,16 @@ function compressImage(file, max, type, q){
       if(type==="image/png"){ g.fillStyle="#fff"; g.fillRect(0,0,c.width,c.height); }
       g.drawImage(im,0,0,c.width,c.height); URL.revokeObjectURL(url); res(c.toDataURL(type,q));
     };
-    im.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("imagen no válida")); };
+    im.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("imaxe non válida")); };
     im.src=url;
   });
 }
 function photoBlock(i){
   const p=getPhoto(i);
   return `<div class="photo" id="photo${i}">
-    <div class="ph">${p?`<img src="${p}" alt="Tu foto en ${esc(STOPS[i].name)}">`:"📸"}</div>
+    <div class="ph">${p?`<img src="${p}" alt="A túa foto en ${esc(STOPS[i].name)}">`:"📸"}</div>
     <div class="tx"><b>Misión foto (opcional)</b><div class="small muted">${esc(STOPS[i].photo)}</div>
-      <label class="btn alt sm" style="margin-top:6px" for="phin${i}">${p?"Cambiar foto":"Hacer foto"}</label>
+      <label class="btn alt sm" style="margin-top:6px" for="phin${i}">${p?"Cambiar foto":"Facer foto"}</label>
       <input class="vh" type="file" id="phin${i}" accept="image/*"></div>
   </div>`;
 }
@@ -995,11 +995,11 @@ function bindPhoto(i, after){
     try{
       const data=await compressImage(f,900,"image/jpeg",.72);
       photoMem[i]=data;
-      if(!lsSet(K.photo(i),data)) toast("Foto guardada solo hasta que cierres la página (memoria llena)");
-      else toast("¡Foto guardada en el álbum!");
+      if(!lsSet(K.photo(i),data)) toast("Foto gardada só ata que peches a páxina (memoria chea)");
+      else toast("Foto gardada no álbum!");
       const box=$("#photo"+i); if(box){ box.outerHTML=photoBlock(i); bindPhoto(i,after); }
       if(after) after();
-    }catch(e){ toast("No se pudo leer la foto"); }
+    }catch(e){ toast("Non se puido ler a foto"); }
   };
 }
 
@@ -1007,22 +1007,22 @@ function vReward(){
   const s=STOPS[S.i], next=STOPS[S.i+1], st=S.stars[S.i]||3;
   view.innerHTML=`
   <section class="card">
-    <span class="tag">Prueba superada</span>
+    <span class="tag">Proba superada</span>
     <div>${starsHtml(st)}</div>
-    <h2>Has ganado la palabra «${esc(CFG.phrase[S.i])}»</h2>
+    <h2>Gañaches a palabra «${esc(CFG.phrase[S.i])}»</h2>
     ${wordsStrip()}
-    <div class="fact"><b>¿Sabías que…?</b> ${esc(s.fact)}</div>
+    <div class="fact"><b>Sabías que…?</b> ${esc(s.fact)}</div>
     ${photoBlock(S.i)}
-    <h3>Siguiente parada: ${esc(next.name)}</h3>
-    <p class="muted">${esc(next.sub)} · ${fmtDist(next.leg)} a pie (≈ ${fmtMin(next.leg/WALK)})</p>
-    <div class="row"><button class="btn wide" id="nx" type="button">Rumbo a la parada ${S.i+2} →</button></div>
+    <h3>Seguinte parada: ${esc(next.name)}</h3>
+    <p class="muted">${esc(next.sub)} · ${fmtDist(next.leg)} a pé (≈ ${fmtMin(next.leg/WALK)})</p>
+    <div class="row"><button class="btn wide" id="nx" type="button">Rumbo á parada ${S.i+2} →</button></div>
   </section>`;
   bindPhoto(S.i);
   $("#nx").onclick=()=>go("travel",S.i+1);
 }
 
 /* ---- pantalla final ---- */
-let qrCache;   // undefined = sin buscar todavía
+let qrCache;   // undefined = sen buscar aínda
 function findQr(cb){
   if(qrCache!==undefined) return cb(qrCache);
   const done=src=>{ qrCache=src; cb(src); };
@@ -1041,27 +1041,27 @@ function vFinal(){
   view.innerHTML=`
   <section class="card">
     <div class="lock" id="lock" aria-hidden="true">🔒</div>
-    <span class="tag">Misión cumplida</span>
+    <span class="tag">Misión cumprida</span>
     <h2>«${esc(phraseText())}»</h2>
-    <div class="stat3"><div><b>${fmtMin(elapsedMin())}</b><span>de aventura</span></div><div><b>${starsTotal()}/${STOPS.length*3}</b><span>estrellas</span></div><div><b>${fmtDist(TOTAL)}</b><span>recorridos</span></div></div>
+    <div class="stat3"><div><b>${fmtMin(elapsedMin())}</b><span>de aventura</span></div><div><b>${starsTotal()}/${STOPS.length*3}</b><span>estrelas</span></div><div><b>${fmtDist(TOTAL)}</b><span>recorridos</span></div></div>
     ${CFG.message ? `<div class="letter">${escBr(CFG.message)}${CFG.from?`<div class="sig">— ${esc(CFG.from)}</div>`:""}</div>` : ""}
-    <h3>Tu código para abrir el locker</h3>
-    <div id="qrslot"><div class="qrbox empty">Buscando el código…</div></div>
-    ${CFG.deadline ? `<div class="warn">⏳ Recógelo antes del <b>${esc(fmtDate(CFG.deadline))}</b>.</div>` : ""}
-    <details><summary>Cómo abrir el locker</summary>
+    <h3>O teu código para abrir o Locker</h3>
+    <div id="qrslot"><div class="qrbox empty">Buscando o código…</div></div>
+    ${CFG.deadline ? `<div class="warn">⏳ Recólleo antes do <b>${esc(fmtDate(CFG.deadline))}</b>.</div>` : ""}
+    <details><summary>Como abrir o Locker</summary>
       <ol class="steps">
-        <li>Ponte delante del Amazon Locker (${esc(s.sub)}).</li>
-        <li>Sube el brillo del móvil al máximo y pulsa el botón de pantalla completa.</li>
-        <li>Acerca el código al lector del locker, a unos 10-15 cm${code?", o tecléalo si la pantalla del locker te lo pide":""}.</li>
-        <li>Se abrirá una puerta: ¡tu regalo está dentro!</li>
+        <li>Ponte diante do Amazon Locker (${esc(s.sub)}).</li>
+        <li>Sobe o brillo do móbil ao máximo e preme o botón de pantalla completa.</li>
+        <li>Achega o código ao lector do Locker, a uns 10-15 cm${code?", ou tecléao se a pantalla do Locker cho pide":""}.</li>
+        <li>Abrirase unha porta: o teu agasallo está dentro!</li>
       </ol>
-      <a href="${maps}" target="_blank" rel="noopener">Ver el locker en Google Maps</a>
+      <a href="${maps}" target="_blank" rel="noopener">Ver o Locker en Google Maps</a>
     </details>
     ${photoBlock(LAST)}
-    <h3>Álbum de la aventura</h3>
+    <h3>Álbum da aventura</h3>
     <div class="album" id="album"></div>
-    <div class="row"><button class="btn alt wide" id="dl" type="button">🖼️ Guardar recuerdo de la aventura</button></div>
-    <p class="small muted">${nPhotos?"":"Aún no tienes fotos: el recuerdo se creará con los iconos de cada parada."}</p>
+    <div class="row"><button class="btn alt wide" id="dl" type="button">🖼️ Gardar unha lembranza da aventura</button></div>
+    <p class="small muted">${nPhotos?"":"Aínda non tes fotos: a lembranza crearase coas iconas de cada parada."}</p>
   </section>`;
   setTimeout(()=>{ const l=$("#lock"); if(l){ l.textContent="🔓"; l.classList.add("open"); } },600);
   const drawAlbum=()=>{ $("#album").innerHTML=STOPS.map((st,i)=>{ const p=getPhoto(i); return `<figure>${p?`<img src="${p}" alt="">`:st.icon}<figcaption>${i+1}. ${esc(st.name)}</figcaption></figure>`; }).join(""); };
@@ -1071,22 +1071,22 @@ function vFinal(){
     const slot=$("#qrslot"); if(!slot) return;
     let html="";
     if(code) html+=`<div class="qrbox bar">${barcodeSvg(code)}<div class="digits">${esc(code)}</div></div>
-      <div class="row"><button class="btn wide" id="fullBar" type="button">Ver código de barras a pantalla completa</button></div>
-      <p class="small muted">Si la pantalla del locker te pide teclearlo, el código es <span class="code">${esc(code)}</span></p>`;
-    if(src) html+=`${code?"<h3>También tienes el QR</h3>":""}<div class="qrbox"><img src="${esc(src)}" alt="Código QR del Amazon Locker"></div>
-      <div class="row"><button class="btn ${code?"alt ":""}wide" id="fullQr" type="button">Ver QR a pantalla completa</button></div>`;
+      <div class="row"><button class="btn wide" id="fullBar" type="button">Ver o código de barras a pantalla completa</button></div>
+      <p class="small muted">Se a pantalla do Locker che pide teclealo, o código é <span class="code">${esc(code)}</span></p>`;
+    if(src) html+=`${code?"<h3>Tamén tes o QR</h3>":""}<div class="qrbox"><img src="${esc(src)}" alt="Código QR do Amazon Locker"></div>
+      <div class="row"><button class="btn ${code?"alt ":""}wide" id="fullQr" type="button">Ver o QR a pantalla completa</button></div>`;
     if(html){
       slot.innerHTML=html; fitBarcodes(slot);
       const fb=$("#fullBar"); if(fb) fb.onclick=()=>openFull(barcodeSvg(code), code);
-      const fq=$("#fullQr"); if(fq) fq.onclick=()=>openFull(`<img src="${esc(src)}" alt="Código QR del Amazon Locker">`, code);
+      const fq=$("#fullQr"); if(fq) fq.onclick=()=>openFull(`<img src="${esc(src)}" alt="Código QR do Amazon Locker">`, code);
     } else {
-      slot.innerHTML=`<div class="qrbox empty"><p><b>Este juego aún no tiene el código del locker.</b></p>
-        <p class="small">Quien preparó el regalo debe añadirlo desde el modo creador (añadiendo <code>#crear</code> a la dirección). Mientras, puedes elegir una imagen del QR aquí; solo quedará en este dispositivo.</p>
-        <label class="btn alt sm" for="qrpick">Elegir imagen del QR</label><input class="vh" type="file" id="qrpick" accept="image/*"></div>
-        <p class="small muted">También encontrarás el código en el correo o la app de Amazon del pedido.</p>`;
+      slot.innerHTML=`<div class="qrbox empty"><p><b>Este xogo aínda non ten o código do Locker.</b></p>
+        <p class="small">Quen preparou o agasallo debe engadilo desde o modo creador (engadindo <code>#crear</code> ao enderezo). Mentres, podes escoller unha imaxe do QR eiquí; só quedará neste dispositivo.</p>
+        <label class="btn alt sm" for="qrpick">Escoller unha imaxe do QR</label><input class="vh" type="file" id="qrpick" accept="image/*"></div>
+        <p class="small muted">Tamén atoparás o código no correo ou na aplicación de Amazon do pedido.</p>`;
       $("#qrpick").onchange=async e=>{
         const f=e.target.files[0]; if(!f) return;
-        try{ const d=await compressImage(f,1000,"image/png"); lsSet(K.qr,d); qrCache=undefined; vFinal(); }catch(err){ toast("No se pudo leer la imagen"); }
+        try{ const d=await compressImage(f,1000,"image/png"); lsSet(K.qr,d); qrCache=undefined; vFinal(); }catch(err){ toast("Non se puido ler a imaxe"); }
       };
     }
   });
@@ -1102,7 +1102,7 @@ let wake=null;
 async function keepAwake(){ try{ if(navigator.wakeLock) wake=await navigator.wakeLock.request("screen"); }catch(e){} }
 function releaseAwake(){ try{ if(wake) wake.release(); }catch(e){} wake=null; }
 
-/* ---- recuerdo (imagen para guardar o compartir) ---- */
+/* ---- lembranza (imaxe para gardar ou compartir) ---- */
 function loadImg(src){ return new Promise(res=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
 function rrect(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
 async function makeCollage(){
@@ -1111,10 +1111,10 @@ async function makeCollage(){
   try{ if(document.fonts) await document.fonts.load('700 60px "Fredoka"'); }catch(e){}
   const bg=g.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#1a2c55"); bg.addColorStop(1,"#0b1324");
   g.fillStyle=bg; g.fillRect(0,0,W,H); g.textAlign="center";
-  g.fillStyle="#f7c04a"; g.font=`700 68px ${head}`; g.fillText("La Misión del Locker",W/2,112);
-  const when=new Date(S.t1||Date.now()).toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+  g.fillStyle="#f7c04a"; g.font=`700 68px ${head}`; g.fillText("A misión do Locker",W/2,112);
+  const when=new Date(S.t1||Date.now()).toLocaleDateString("gl-ES",{day:"numeric",month:"long",year:"numeric"});
   g.fillStyle="#eef3ff"; g.font=`600 34px ${body}`; g.fillText((CFG.recipient?CFG.recipient+" · ":"")+"Montpellier · "+when,W/2,170,W-80);
-  g.fillStyle="#a9b8d9"; g.font=`500 30px ${body}`; g.fillText(`${fmtDist(TOTAL)} a pie · ${fmtMin(elapsedMin())} · ★ ${starsTotal()}/${STOPS.length*3}`,W/2,220);
+  g.fillStyle="#a9b8d9"; g.font=`500 30px ${body}`; g.fillText(`${fmtDist(TOTAL)} a pé · ${fmtMin(elapsedMin())} · ★ ${starsTotal()}/${STOPS.length*3}`,W/2,220);
   const cw=470, ch=330, xs=[50,560], y0=262, step=ch+78;
   for(let i=0;i<STOPS.length;i++){
     const x=xs[i%2], y=y0+Math.floor(i/2)*step, src=getPhoto(i), im=src?await loadImg(src):null;
@@ -1132,15 +1132,15 @@ function download(blob,name){
   document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1500);
 }
 async function saveCollage(btn){
-  const label=btn.textContent; btn.disabled=true; btn.textContent="Creando imagen…";
+  const label=btn.textContent; btn.disabled=true; btn.textContent="Creando a imaxe…";
   try{
-    const blob=await makeCollage(), name="mision-del-locker.jpg";
+    const blob=await makeCollage(), name="mision-do-locker.jpg";
     const file=typeof File==="function" ? new File([blob],name,{type:"image/jpeg"}) : null;
     const mobile=matchMedia("(pointer:coarse)").matches;
     if(mobile && file && navigator.canShare && navigator.canShare({files:[file]})){
-      try{ await navigator.share({files:[file],title:"La Misión del Locker"}); }catch(e){ if(e.name!=="AbortError") download(blob,name); }
+      try{ await navigator.share({files:[file],title:"A misión do Locker"}); }catch(e){ if(e.name!=="AbortError") download(blob,name); }
     } else download(blob,name);
-  }catch(e){ toast("No se pudo crear la imagen"); }
+  }catch(e){ toast("Non se puido crear a imaxe"); }
   btn.disabled=false; btn.textContent=label;
 }
 
@@ -1170,88 +1170,88 @@ function vCreator(){
   view.innerHTML=`
   <section class="card">
     <span class="tag">Modo creador</span>
-    <h2>Prepara el regalo</h2>
-    <p>Rellena los datos, añade el QR del locker y descarga tu juego personalizado: <b>un único archivo HTML</b> con todo dentro, listo para enviar.</p>
-    <label class="lbl" for="cRecipient">Nombre de quien recibe el regalo</label><input type="text" id="cRecipient" value="${esc(CFG.recipient)}" maxlength="40">
-    <label class="lbl" for="cFrom">Tu nombre o firma</label><input type="text" id="cFrom" value="${esc(CFG.from)}" maxlength="60">
-    <label class="lbl" for="cMsg">Mensaje que verá al terminar</label><textarea id="cMsg" maxlength="1200" placeholder="Ej.: ¡Feliz cumpleaños! Espero que te guste…">${esc(CFG.message)}</textarea>
-    <label class="lbl" for="cQr">Imagen del QR del Amazon Locker (recórtala para que se vea solo el QR)</label>
+    <h2>Prepara o agasallo</h2>
+    <p>Enche os datos, engade o QR do Locker e descarga o teu xogo personalizado: <b>un único ficheiro HTML</b> con todo dentro, listo para enviar.</p>
+    <label class="lbl" for="cRecipient">Nome de quen recibe o agasallo</label><input type="text" id="cRecipient" value="${esc(CFG.recipient)}" maxlength="40">
+    <label class="lbl" for="cFrom">O teu nome ou sinatura</label><input type="text" id="cFrom" value="${esc(CFG.from)}" maxlength="60">
+    <label class="lbl" for="cMsg">Mensaxe que verá ao rematar</label><textarea id="cMsg" maxlength="1200" placeholder="Ex.: Feliz aniversario! Agardo que che guste…">${esc(CFG.message)}</textarea>
+    <label class="lbl" for="cQr">Imaxe do QR do Amazon Locker (recórtaa para que só se vexa o QR)</label>
     <input type="file" id="cQr" accept="image/*">
     <div id="cQrPrev"></div>
-    <label class="lbl" for="cCode">Código de recogida (se convertirá en código de barras)</label><input type="text" id="cCode" value="${esc(revealCode())}" maxlength="40" inputmode="numeric" autocomplete="off">
+    <label class="lbl" for="cCode">Código de recollida (converterase nun código de barras)</label><input type="text" id="cCode" value="${esc(revealCode())}" maxlength="40" inputmode="numeric" autocomplete="off">
     <div id="cCodePrev"></div>
-    <label class="lbl" for="cDate">Fecha límite de recogida (opcional)</label><input type="date" id="cDate" value="${esc(CFG.deadline)}">
+    <label class="lbl" for="cDate">Data límite de recollida (opcional)</label><input type="date" id="cDate" value="${esc(CFG.deadline)}">
     <label class="lbl" for="cPhrase">Frase secreta: exactamente 6 palabras</label><input type="text" id="cPhrase" value="${esc(CFG.phrase.join(" "))}">
     <div class="msg" id="cOut" role="status"></div>
     <div class="row">
-      <button class="btn" id="cDl" type="button">⬇️ Descargar juego personalizado</button>
-      <button class="btn alt" id="cTest" type="button">Probar en este navegador</button>
+      <button class="btn" id="cDl" type="button">⬇️ Descargar o xogo personalizado</button>
+      <button class="btn alt" id="cTest" type="button">Probar neste navegador</button>
     </div>
-    <div class="row"><button class="btn alt sm" id="cClear" type="button">Borrar los ajustes de este navegador</button><a class="btn alt sm" href="#">Volver al juego</a></div>
-    <div class="fact"><b>Consejos</b>
+    <div class="row"><button class="btn alt sm" id="cClear" type="button">Borrar os axustes deste navegador</button><a class="btn alt sm" href="#">Voltar ao xogo</a></div>
+    <div class="fact"><b>Consellos</b>
       <ul class="small" style="margin:.4em 0;padding-left:1.2em">
-        <li>El QR queda guardado dentro del archivo, ofuscado con la frase secreta para que no se vea a simple vista.</li>
-        <li>Los códigos de Amazon Locker caducan a los pocos días de la entrega: prepara el juego cuando el paquete ya esté en el locker.</li>
-        <li>Para jugar desde el móvil, lo más fiable es subir el archivo a una web (por ejemplo, Netlify Drop o GitHub Pages) y enviar el enlace. Si lo mandas como archivo, ábrelo en Chrome o Safari.</li>
-        <li>Para probar el juego sin caminar, abre el archivo con <code>#dev</code> al final de la dirección: aparecerán botones para saltar pasos.</li>
+        <li>O QR queda gardado dentro do ficheiro, ofuscado coa frase secreta para que non se vexa a simple vista.</li>
+        <li>Os códigos de Amazon Locker caducan aos poucos días da entrega: prepara o xogo cando o paquete xa estea no Locker.</li>
+        <li>Para xogar desde o móbil, o máis fiábel é subir o ficheiro a unha web (por exemplo, Netlify Drop ou GitHub Pages) e enviar a ligazón. Se o mandas como ficheiro, ábreo en Chrome ou Safari.</li>
+        <li>Para probar o xogo sen camiñar, abre o ficheiro con <code>#dev</code> ao final do enderezo: aparecerán botóns para saltar pasos.</li>
       </ul>
     </div>
   </section>`;
-  const prev=()=>{ $("#cQrPrev").innerHTML = qr ? `<div class="qrbox" style="max-width:200px"><img src="${qr}" alt="Vista previa del QR"></div><button class="btn alt sm" id="cQrDel" type="button">Quitar QR</button>` : `<p class="small muted">Sin QR todavía.</p>`; const d=$("#cQrDel"); if(d) d.onclick=()=>{ qr=null; $("#cQr").value=""; prev(); }; };
+  const prev=()=>{ $("#cQrPrev").innerHTML = qr ? `<div class="qrbox" style="max-width:200px"><img src="${qr}" alt="Vista previa do QR"></div><button class="btn alt sm" id="cQrDel" type="button">Quitar o QR</button>` : `<p class="small muted">Aínda sen QR.</p>`; const d=$("#cQrDel"); if(d) d.onclick=()=>{ qr=null; $("#cQr").value=""; prev(); }; };
   prev();
   $("#cQr").onchange=async e=>{
     const f=e.target.files[0]; if(!f) return;
-    try{ qr=await compressImage(f,1000,"image/png"); prev(); }catch(err){ say2("No se pudo leer la imagen.",false); }
+    try{ qr=await compressImage(f,1000,"image/png"); prev(); }catch(err){ say2("Non se puido ler a imaxe.",false); }
   };
   const say2=(t,ok)=>{ const o=$("#cOut"); o.textContent=t; o.className="msg "+(ok?"ok":"bad"); };
   const codeVal=()=>$("#cCode").value.replace(/\s+/g,"");
   const codePrev=()=>{
     const c=codeVal(), svg=c?barcodeSvg(c):"";
-    $("#cCodePrev").innerHTML = !c ? "" : svg ? `<div class="qrbox bar" style="margin-left:0">${svg}<div class="digits">${esc(c)}</div></div>` : `<p class="msg bad">El código solo puede tener letras sin tilde, números y signos básicos.</p>`;
+    $("#cCodePrev").innerHTML = !c ? "" : svg ? `<div class="qrbox bar" style="margin-left:0">${svg}<div class="digits">${esc(c)}</div></div>` : `<p class="msg bad">O código só pode ter letras sen acento, números e signos básicos.</p>`;
     fitBarcodes($("#cCodePrev"));
   };
   $("#cCode").oninput=codePrev; codePrev();
   const collect=()=>{
     const phrase=$("#cPhrase").value.trim().split(/\s+/).filter(Boolean).map(w=>w.toUpperCase());
-    if(phrase.length!==6){ say2(`La frase debe tener 6 palabras (ahora tiene ${phrase.length}).`,false); return null; }
-    if(!norm(phrase.join(""))){ say2("La frase necesita alguna letra o número.",false); return null; }
+    if(phrase.length!==6){ say2(`A frase debe ter 6 palabras (agora ten ${phrase.length}).`,false); return null; }
+    if(!norm(phrase.join(""))){ say2("A frase precisa algunha letra ou número.",false); return null; }
     const code=codeVal();
-    if(code && !code128Bits(code)){ say2("Revisa el código de recogida: tiene caracteres no válidos.",false); return null; }
+    if(code && !code128Bits(code)){ say2("Revisa o código de recollida: ten caracteres non válidos.",false); return null; }
     return {v:2, recipient:$("#cRecipient").value.trim(), from:$("#cFrom").value.trim(), message:$("#cMsg").value.trim(),
       lockerCode:"", codeX: code ? obfuscate(code,phrase) : "", deadline:$("#cDate").value, phrase, qr: qr ? obfuscate(qr,phrase) : ""};
   };
   $("#cDl").onclick=()=>{
     const cfg=collect(); if(!cfg) return;
-    if(!cfg.qr && !cfg.codeX) say2("Ojo: lo descargas sin código ni QR. Podrás añadirlos más tarde.",false); else say2("¡Listo! Revisa tu carpeta de descargas.",true);
+    if(!cfg.qr && !cfg.codeX) say2("Ollo: descárgalo sen código nin QR. Poderás engadilos máis tarde.",false); else say2("Listo! Revisa o teu cartafol de descargas.",true);
     const slug=norm(cfg.recipient).slice(0,20);
-    download(new Blob([buildExport(cfg)],{type:"text/html"}), `regalo${slug?"-"+slug:""}.html`);
+    download(new Blob([buildExport(cfg)],{type:"text/html"}), `agasallo${slug?"-"+slug:""}.html`);
   };
   $("#cTest").onclick=()=>{
     const cfg=collect(); if(!cfg) return;
-    if(!lsSet(K.cfg,JSON.stringify(cfg))){ say2("No hay espacio para guardar los ajustes en este navegador (prueba con un QR más pequeño).",false); return; }
+    if(!lsSet(K.cfg,JSON.stringify(cfg))){ say2("Non hai espazo para gardar os axustes neste navegador (proba cun QR máis pequeno).",false); return; }
     loadCfg(); qrCache=undefined; S=NEW_STATE(); save(); clearPhotos();
-    toast("Ajustes guardados en este navegador");
+    toast("Axustes gardados neste navegador");
     try{ history.replaceState(null,"",location.pathname+location.search); render(true); }catch(e){ location.hash=""; }
   };
-  $("#cClear").onclick=()=>{ lsDel(K.cfg); lsDel(K.qr); loadCfg(); qrCache=undefined; vCreator(); toast("Ajustes locales borrados"); };
+  $("#cClear").onclick=()=>{ lsDel(K.cfg); lsDel(K.qr); loadCfg(); qrCache=undefined; vCreator(); toast("Axustes locais borrados"); };
 }
 function clearPhotos(){ STOPS.forEach((s,i)=>{ lsDel(K.photo(i)); delete photoMem[i]; }); }
 
-/* ================= ayuda, tema, sonido, reinicio ================= */
+/* ================= axuda, tema, son, reinicio ================= */
 function showHelp(){
   const cur=STOPS[S.i], locker=STOPS[LAST];
   const link=(s,t)=>`<a href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=walking" target="_blank" rel="noopener">${t}</a>`;
-  modal("Cómo se juega",`
+  modal("Como se xoga",`
     <ol class="steps">
-      <li>Camina hasta cada parada. Con el GPS verás tu posición en el mapa, la distancia y una flecha; con la brújula, la flecha apunta directamente a la parada.</li>
-      <li>Al llegar, pulsa «Ya he llegado» y supera la prueba. Cada pista que pidas cuesta una estrella.</li>
-      <li>Cada prueba te da una palabra. En el locker, ordénalas y obtendrás el QR.</li>
+      <li>Camiña ata cada parada. Co GPS verás a túa posición no mapa, a distancia e unha frecha; co compás, a frecha apunta directamente á parada.</li>
+      <li>Ao chegar, preme «Xa cheguei» e supera a proba. Cada pista que pidas custa unha estrela.</li>
+      <li>Cada proba dáche unha palabra. No Locker, ordénaas e obterás o QR.</li>
     </ol>
-    <p>Tu progreso se guarda en este móvil: puedes cerrar la página y seguir después.</p>
-    <h3>¿Te has perdido?</h3>
-    <p>${S.screen==="intro"?"":`${link(cur,"Cómo llegar a la parada actual ("+esc(cur.name)+")")}<br>`}${link(locker,"Ir directamente al locker")} (gasolinera Eni, 544 Rue Paul Rimbaud).</p>
-    <p>Si en algún momento no te sientes a gusto, ve directamente al locker o deja la ruta para otro momento: tu progreso queda guardado. En caso de emergencia, llama al <a href="tel:112"><b>112</b></a>.</p>
-    <p class="small muted">Si el mapa sale en blanco o con un aviso, pulsa «🔁 Mapa» para cambiar de servidor. Mapas: © OpenStreetMap y sus colaboradores, Esri, OSM France, OSM DE, CyclOSM y OpenTopoMap.</p>`,
+    <p>O teu progreso gárdase neste móbil: podes pechar a páxina e seguir despois.</p>
+    <h3>Perdícheste?</h3>
+    <p>${S.screen==="intro"?"":`${link(cur,"Como chegar á parada actual ("+esc(cur.name)+")")}<br>`}${link(locker,"Ir directamente ao Locker")} (gasolineira Eni, 544 Rue Paul Rimbaud).</p>
+    <p>Se nalgún momento non te sentes a gusto, vai directamente ao Locker ou deixa a ruta para outro momento: o teu progreso queda gardado. En caso de emerxencia, chama ao <a href="tel:112"><b>112</b></a>.</p>
+    <p class="small muted">Se o mapa sae en branco ou cun aviso, preme «🔁 Mapa» para cambiar de servidor. Mapas: © OpenStreetMap e os seus colaboradores, Esri, OSM France, OSM DE, CyclOSM e OpenTopoMap.</p>`,
     [{id:"ok",label:"Entendido"}]);
 }
 function applyTheme(t){
@@ -1262,12 +1262,12 @@ function applyTheme(t){
 $("#bTheme").onclick=()=>{
   const cur=document.documentElement.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
   const t=cur==="dark"?"light":"dark"; lsSet(K.theme,t); applyTheme(t);
-  toast(t==="light"?"Tema claro: se lee mejor al sol":"Tema oscuro");
+  toast(t==="light"?"Tema claro: lese mellor ao sol":"Tema escuro");
 };
 $("#bSound").onclick=()=>{ soundOn=!soundOn; lsSet(K.sound,soundOn?"1":"0"); renderHeader(); if(soundOn) play("win"); };
 $("#bHelp").onclick=showHelp; $("#fHelp").onclick=showHelp;
 $("#fReset").onclick=async()=>{
-  const r=await modal("¿Reiniciar la aventura?","<p>Se borrarán el progreso, las estrellas y las fotos de este móvil.</p>",[{id:"y",label:"Sí, reiniciar"},{id:"n",label:"Cancelar",cls:"alt"}]);
+  const r=await modal("Reiniciar a aventura?","<p>Borraranse o progreso, as estrelas e as fotos deste móbil.</p>",[{id:"y",label:"Si, reiniciar"},{id:"n",label:"Cancelar",cls:"alt"}]);
   if(r!=="y") return;
   S=NEW_STATE(); save(); clearPhotos(); render(true); window.scrollTo({top:0});
 };
